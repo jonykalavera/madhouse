@@ -19,7 +19,18 @@
     # light = true
 
 [merge]
+    tool = meld
     conflictstyle = diff3
 
+[init]
+	defaultBranch = main
+
 [diff]
+    tool = meld
     colorMoved = default
+
+[difftool]
+    prompt = false
+
+[difftool "meld"]
+    cmd = meld "$LOCAL" "$REMOTE"
