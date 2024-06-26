@@ -6,17 +6,9 @@ Jony Kalavera's, chezmoi dot-files repo.
 
 Install required tools. For arch:
 ```bash
-sudo pacman -Sy chezmoi
-sudo pacman -Sy fzf
-sudo pacman -Sy fd
-sudo pacman -Sy bat
-sudo pacman -Sy btop
-sudo pacman -Sy neovim
-sudo pacman -Sy nvm
-sudo pacman -Sy tldr
-sudo pacman -Sy dust
-sudo pacman -Sy git-delta
+sudo pacman -Sy chezmoi fzf fd bat btop neovim nvm tldr dust git-delta btop
 git clone git@github.com:junegunn/fzf-git.sh.git .fzf-git.sh
+pip install jedi pynvim --user
 ```
 
 Restore dot-files with `chezmoi`.
