@@ -1,5 +1,10 @@
 [core]
+    autocrlf = input
     pager = delta
+
+[user]
+    email = mr.jony@gmail.com
+    name = Jony Kalavera
 
 [interactive]
     diffFilter = delta --color-only
