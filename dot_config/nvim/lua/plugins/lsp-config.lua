@@ -18,7 +18,7 @@ return {
 		"williamboman/mason-lspconfig.nvim",
 		config = function()
 			require("mason-lspconfig").setup({
-				ensure_installed = { "lua_ls", "pylsp", "rust_analyzer" },
+				ensure_installed = { "lua_ls", "pylsp", "rust_analyzer", "ruff" },
 			})
 		end,
 	},
@@ -75,6 +75,20 @@ return {
 			lspconfig.lua_ls.setup({
 				on_attach = on_attach,
 				capabilities = cmp_capabilities,
+			})
+			lspconfig.pylsp.setup({
+				on_attach = on_attach,
+				capabilities = cmp_capabilities,
+				settings = {
+					pylsp = {
+						plugins = {
+							pycodestyle = {
+								ignore = {},
+								maxLineLength = 120,
+							},
+						},
+					},
+				},
 			})
 			lspconfig.ruff.setup({
 				on_attach = on_attach,
