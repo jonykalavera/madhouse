@@ -10,6 +10,6 @@ return {
 	config = function()
 		require("neo-tree").setup({ close_if_last_window = true })
 		-- neo-tree
-		vim.keymap.set("n", "tt", ":Neotree filesystem toggle left<CR>")
+		vim.keymap.set("n", "tt", ":Neotree filesystem toggle left<CR>", { desc = "Toggle tree pane" })
 	end,
 }
