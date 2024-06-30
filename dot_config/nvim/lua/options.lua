@@ -3,6 +3,7 @@ vim.opt.clipboard = "unnamedplus" -- use system clipboard
 vim.opt.completeopt = { "menu", "menuone", "noselect" }
 vim.opt.mouse = "a" -- allow the mouse to be used in Nvim
 vim.g.mapleader = "ñ"
+vim.opt.autoread = true
 
 -- Tab
 vim.opt.tabstop = 4 -- number of visual spaces per TAB
@@ -17,7 +18,7 @@ vim.opt.cursorline = true -- highlight cursor line underneath the cursor horizon
 vim.opt.splitbelow = true -- open new vertical split bottom
 vim.opt.splitright = true -- open new horizontal splits right
 vim.opt.termguicolors = true -- enabl 24-bit RGB color in the TUI
-vim.opt.colorcolumn = '120' -- set vertical line marker
+vim.opt.colorcolumn = "120" -- set vertical line marker
 vim.opt.showmode = false -- we are experienced, wo don't need the "-- INSERT --" mode hint
 
 -- Searching
