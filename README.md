@@ -1,29 +1,28 @@
 # Madhouse
 
-Jony Kalavera's, chezmoi dot-files repo.
+Jony Kalavera's Personalized chezmoi Repository
 
-## Quick setup
+## Quick Setup
 
-Install required tools. For arch:
-```bash
+To get started, first ensure you have all the necessary tools installed. For Arch Linux users:
+```
 sudo pacman -Sy chezmoi fzf fd bat btop neovim nvm tldr dust git-delta btop
 git clone git@github.com:junegunn/fzf-git.sh.git .fzf-git.sh
 ```
 
-Restore dot-files with `chezmoi`.
+Next, restore your dotfiles using chezmoi. Simply run:
 ```
 chezmoi init git@github.com:jonykalavera/madhouse.git
 chezmoi update -v
 ```
-For more details check https://www.chezmoi.io/user-guide/command-overview/#daily-commands
 
-## Neovim setup
+For more detailed information on daily commands and usage, please consult the official [chezmoi documentation](https://www.chezmoi.io/user-guide/command-overview/#daily-commands).
 
-Create a venv for neovim
-```bash
+## Neovim Configuration
+
+To set up your neovim environment, create a virtual environment:
+```
 cd .config/nvim
 python -m venv venv
 ./venv/bin/pip install -r requirements.txt
 ```
-
-
