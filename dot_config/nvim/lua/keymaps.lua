@@ -42,3 +42,9 @@ vim.keymap.set("n", "<C-K>", "dd", opts("Delete line"))
 -- Hint: start visual mode with the same area as the previous area and the same mode
 vim.keymap.set("v", "<", "<gv", opts("Unindent selection"))
 vim.keymap.set("v", ">", ">gv", opts("Indent selection"))
+
+-------------------
+-- Terminal mode --:
+-------------------
+
+vim.keymap.set("t", "<Esc>", "<C-\\><C-n>", { noremap = true, desc = "Exit terminal mode" })
