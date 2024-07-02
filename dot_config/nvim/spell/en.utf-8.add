@@ -23,3 +23,8 @@ kafka
 KeyError
 metadata
 ui
+BlockingConnection
+RabbitMQConsumer
+AsyncioConnection
+ReconnectingRabbitMQConsumer
+KeyboardInterrupt
