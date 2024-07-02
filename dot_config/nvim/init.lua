@@ -16,3 +16,5 @@ require("options")
 require("lazy").setup("plugins")
 require("keymaps")
 require("colorscheme")
+vim.opt.spell = true
+vim.opt.spelllang = "en_us"

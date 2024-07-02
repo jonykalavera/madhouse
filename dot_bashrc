@@ -212,3 +212,4 @@ complete -W "\`grep -oE '^[a-zA-Z0-9_.-]+:([^=]|$)' ?akefile | sed 's/[^a-zA-Z0-
 
 # Custom Alias
 alias git-prune-branches='git branch --merged origin/master | xargs git branch -d'
+alias vim=nvim

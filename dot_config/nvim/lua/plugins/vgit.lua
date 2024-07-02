@@ -2,6 +2,7 @@ return {
 	"tanvirtin/vgit.nvim",
 	dependencies = {
 		"nvim-lua/plenary.nvim",
+		"folke/which-key.nvim",
 	},
 	config = function()
 		require("vgit").setup({
@@ -22,5 +23,30 @@ return {
 				["n <leader>gx"] = "toggle_diff_preference",
 			},
 		})
+		local wk = require("which-key")
+		-- As an example, we will create the following mappings:
+		--  * <leader>ff find files
+		--  * <leader>fr show recent files
+		--  * <leader>fb Foobar
+		-- we'll document:
+		--  * <leader>fn new file
+		--  * <leader>fe edit file
+		-- and hide <leader>1
+
+		wk.register({
+			g = {
+				name = "GIT", -- optional group name
+				s = "Stage hunk in buffer",
+				r = "Reset hunk in buffer",
+				p = "Preview hunk in buffer",
+				b = "Preview blame in buffer",
+				f = "Buffer diff preview",
+				h = "Buffer history preview",
+				u = "Reset buffer",
+				g = "Show blame gutter",
+				d = "Project diff preview",
+				x = "Toggle diff preference",
+			},
+		}, { prefix = "<leader>" })
 	end,
 }

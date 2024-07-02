@@ -6,8 +6,19 @@ return {
 		config = function()
 			local builtin = require("telescope.builtin")
 			vim.keymap.set("n", "<C-p>", builtin.find_files, { desc = "Find files" })
-			vim.keymap.set("n", "<leader>ff", builtin.live_grep, { desc = "Find in files / Live grep" })
+			vim.keymap.set("n", "<C-r>", builtin.treesitter, { desc = "Find syntax symbols" })
+			vim.keymap.set("n", "<leader>fr", builtin.lsp_references, { desc = "Find references" })
+			vim.keymap.set("n", "<leader>ff", builtin.find_files, { desc = "Find files" })
+			vim.keymap.set("n", "<leader>fg", builtin.live_grep, { desc = "Find in files / Live grep" })
 			vim.keymap.set("n", "<leader>fb", builtin.buffers, { desc = "Find buffers" })
+			vim.keymap.set("n", "<leader>fh", builtin.help_tags, { desc = "Find help tags" })
+			vim.keymap.set("n", "<leader>fq", builtin.quickfix, { desc = "Find quickfix history", noremap = true })
+			vim.keymap.set(
+				"n",
+				"<leader>fQ",
+				builtin.quickfixhistory,
+				{ desc = "Find quickfix history", noremap = true }
+			)
 		end,
 	},
 	{
