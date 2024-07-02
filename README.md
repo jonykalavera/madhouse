@@ -2,6 +2,8 @@
 
 Jony Kalavera's Personalized [chezmoi](https://www.chezmoi.io) Repository
 
+![Hero-banner](./Pictures/madhouse-hero-banner.jpg "Hero-banner")
+
 ## Quick Setup
 
 To get started, first ensure you have all the necessary tools installed. For Arch Linux users:
