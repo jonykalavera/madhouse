@@ -1,6 +1,6 @@
 # Madhouse
 
-Jony Kalavera's Personalized chezmoi Repository
+Jony Kalavera's Personalized [chezmoi](https://www.chezmoi.io) Repository
 
 ## Quick Setup
 
