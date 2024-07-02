@@ -47,4 +47,4 @@ vim.keymap.set("v", ">", ">gv", opts("Indent selection"))
 -- Terminal mode --:
 -------------------
 
-vim.keymap.set("t", "<Esc>", "<C-\\><C-n>", { noremap = true, desc = "Exit terminal mode" })
+vim.keymap.set("t", "<Esc>", "<C-\\><C-n>", opts("Exit terminal mode"))
