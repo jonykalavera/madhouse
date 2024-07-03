@@ -13,10 +13,10 @@ end
 
 -- Hint: see `:h vim.map.set()`
 -- Better window navigation
-vim.keymap.set("n", "<C-h>", "<C-w>h", opts("Go to left window"))
-vim.keymap.set("n", "<C-j>", "<C-w>j", opts("Go to lower window"))
-vim.keymap.set("n", "<C-k>", "<C-w>k", opts("Go to upper window"))
-vim.keymap.set("n", "<C-l>", "<C-w>l", opts("Go to right window"))
+-- vim.keymap.set("n", "<C-h>", "<C-w>h", opts("Go to left window"))
+-- vim.keymap.set("n", "<C-j>", "<C-w>j", opts("Go to lower window"))
+-- vim.keymap.set("n", "<C-k>", "<C-w>k", opts("Go to upper window"))
+-- vim.keymap.set("n", "<C-l>", "<C-w>l", opts("Go to right window"))
 
 -- Resize with arrows
 -- delta: 2 lines
@@ -33,7 +33,7 @@ vim.keymap.set("n", "ya", "ggVGy<C-O>", opts("Copy all text"))
 vim.keymap.set("n", "sa", "ggVG<C-O>", opts("Select all text"))
 vim.keymap.set("n", "<C-a>", "ggVG<C-O>", opts("Select all text"))
 vim.keymap.set("n", "<C-D>", "yyp", opts("Duplicate line"))
-vim.keymap.set("n", "<C-K>", "dd", opts("Delete line"))
+-- vim.keymap.set("n", "<C-K>", "dd", opts("Delete line"))
 
 -----------------
 -- Visual mode --:

@@ -18,7 +18,7 @@ return {
 		"williamboman/mason-lspconfig.nvim",
 		config = function()
 			require("mason-lspconfig").setup({
-				ensure_installed = { "lua_ls", "pylsp", "rust_analyzer", "ruff", "marksman" },
+				ensure_installed = { "lua_ls", "pylsp", "rust_analyzer", "ruff", "marksman", "harper_ls" },
 			})
 		end,
 	},
@@ -63,7 +63,7 @@ return {
 				vim.keymap.set("n", "gd", vim.lsp.buf.definition, bufopts("Go to definition"))
 				vim.keymap.set("n", "K", vim.lsp.buf.hover, bufopts("Show hover information"))
 				vim.keymap.set("n", "gi", vim.lsp.buf.implementation, bufopts("Show implentations"))
-				vim.keymap.set("n", "<C-k>", vim.lsp.buf.signature_help, bufopts("Show signature help"))
+				vim.keymap.set("n", "H", vim.lsp.buf.signature_help, bufopts("Show signature help"))
 				vim.keymap.set("n", "<space>wa", vim.lsp.buf.add_workspace_folder, bufopts("Add workspace folder"))
 				vim.keymap.set(
 					"n",
@@ -116,6 +116,11 @@ return {
 				on_attach = on_attach,
 				capabilities = cmp_capabilities,
 				filetypes = { "markdown" },
+			})
+			lspconfig.harper_ls.setup({
+				on_attach = on_attach,
+				capabilities = cmp_capabilities,
+				filetypes = { "toml" },
 			})
 		end,
 	},

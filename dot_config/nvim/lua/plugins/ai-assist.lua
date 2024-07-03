@@ -1,56 +1,42 @@
 return {
-	{
-		"David-Kunz/gen.nvim",
-		opts = {
-			model = "llama3", -- The default model to use.
-			host = "localhost", -- The host running the Ollama service.
-			port = "11434", -- The port on which the Ollama service is listening.
-			quit_map = "q", -- set keymap for close the response window
-			retry_map = "<c-r>", -- set keymap to re-send the current prompt
-			init = function(options)
-				pcall(io.popen, "ollama serve > /dev/null 2>&1 &")
-			end,
-			-- Function to initialize Ollama
-			command = function(options)
-				local body = { model = options.model, stream = true }
-				return "curl --silent --no-buffer -X POST http://"
-					.. options.host
-					.. ":"
-					.. options.port
-					.. "/api/chat -d $body"
-			end,
-			-- The command for the Ollama service. You can use placeholders $prompt, $model and $body (`shellescaped`).
-			-- This can also be a command string.
-			-- The executed command must return a JSON object with { response, context }
-			-- (context property is optional).
-			-- list_models = '<omitted lua function>', -- Retrieves a list of model names
-			display_mode = "float", -- The display mode. Can be "float" or "split" or "horizontal-split".
-			show_prompt = false, -- Shows the prompt submitted to Ollama.
-			show_model = false, -- Displays which model you are using at the beginning of your chat session.
-			no_auto_close = false, -- Never closes the window automatically.
-			debug = false, -- Prints errors and the command which is run.
+	"olimorris/codecompanion.nvim",
+	dependencies = {
+		"nvim-lua/plenary.nvim",
+		"nvim-treesitter/nvim-treesitter",
+		"nvim-telescope/telescope.nvim", -- Optional
+		{
+			"stevearc/dressing.nvim", -- Optional: Improves the default Neovim UI
+			opts = {},
 		},
 	},
-	{
-		"dj95/telescope-gen.nvim",
-		dependencies = {
-			"David-Kunz/gen.nvim",
-			"nvim-telescope/telescope.nvim",
-		},
-		config = function()
-			require("telescope").load_extension("gen")
-			vim.keymap.set(
-				"n",
-				"<leader>gp",
-				"<Esc><cmd>lua require('telescope').extensions.gen.prompts({ mode = 'n'})<CR>",
-				{ desc = "Show AI assistant prompts" }
-			)
-			vim.keymap.set(
-				"v",
-				"<leader>gp",
-				"<Esc><cmd>lua require('telescope').extensions.gen.prompts({ mode = 'v'})<CR>",
-				{ desc = "Show AI assistant prompts" }
-			)
-		end,
-	},
+	config = function()
+		local codecompanion = require("codecompanion")
+		codecompanion.setup({
+			strategies = {
+				chat = "ollama",
+				inline = "ollama",
+				agent = "ollama",
+			},
+			adapters = {
+				ollama = require("codecompanion.adapters").use("ollama", {
+					schema = {
+						model = {
+							default = "llama3:latest",
+						},
+					},
+				}),
+			},
+		})
+		local opts = function(desc)
+			return { noremap = true, silent = true, desc = desc }
+		end
+		vim.keymap.set("n", "<Leader>cca", "<cmd>CodeCompanionActions<cr>", opts("Code Companion Actions"))
+		vim.keymap.set("v", "<Leader>cca", "<cmd>CodeCompanionActions<cr>", opts("Code Companion Actions"))
+		vim.keymap.set("n", "<Leader>ca", "<cmd>CodeCompanionToggle<cr>", opts("Toggle Code Companion"))
+		vim.keymap.set("v", "<Leader>ca", "<cmd>CodeCompanionToggle<cr>", opts("Toggle Code Companion"))
+		vim.keymap.set("v", "<Leader>ga", "<cmd>CodeCompanionAdd<cr>", opts("Add to Code Companion"))
+
+		-- Expand 'cc' into 'CodeCompanion' in the command line
+		vim.cmd([[cab cc CodeCompanion]])
+	end,
 }

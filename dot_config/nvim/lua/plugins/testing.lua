@@ -45,7 +45,7 @@ return {
 		vim.keymap.set("n", "<leader>ts", function()
 			neotest.run.stop()
 		end, { desc = "Stop nearest test" })
-		vim.keymap.set("n", "<leader>ts", function()
+		vim.keymap.set("n", "<leader>ta", function()
 			neotest.run.attach()
 		end, { desc = "Attach to nearest test" })
 	end,

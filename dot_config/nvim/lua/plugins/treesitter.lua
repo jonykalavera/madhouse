@@ -16,6 +16,8 @@ return {
 				"css",
 				"javascript",
 				"html",
+				"toml",
+				"yaml",
 			},
 			sync_install = false,
 			highlight = { enable = true },
@@ -23,4 +25,3 @@ return {
 		})
 	end,
 }
-
