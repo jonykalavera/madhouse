@@ -11,6 +11,11 @@ end
 -- Normal mode --
 -----------------
 
+-- Search
+vim.keymap.set("n", "<leader>ss", function()
+	vim.cmd('let @/ = ""')
+end, opts("Clear search")) --
+
 -- Hint: see `:h vim.map.set()`
 -- Better window navigation
 -- vim.keymap.set("n", "<C-h>", "<C-w>h", opts("Go to left window"))
