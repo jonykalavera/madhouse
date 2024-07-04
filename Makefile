@@ -5,7 +5,7 @@ clean-downloads:
 	cd Downloads && java -jar DownloadsOrganizer.jar
 
 install:	
-	sudo pacman -Sy chezmoi fzf fd bat btop neovim nvm tldr dust git-delta btop tmux tmuxp kitty
+	sudo pacman -Sy chezmoi fzf fd bat btop neovim nvm tldr dust git-delta btop tmux tmuxp kitty zoxide
 	if [[ ! -d $$HOME/.fzf-git.sh ]]; then git clone git@github.com:junegunn/fzf-git.sh.git .fzf-git.sh; fi
 	cd .config/nvim
 	if [[ ! -d ~/.config/nvim/venv ]]; then python -m venv venv; fi
