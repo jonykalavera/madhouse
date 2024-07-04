@@ -11,3 +11,9 @@ install:
 	if [[ ! -d ~/.config/nvim/venv ]]; then python -m venv venv; fi
 	$$HOME/.config/nvim/venv/bin/pip install -r $$HOME/.config/nvim/requirements.txt
 	if [[ ! -d ~/.tmux/plugins/tpm ]]; then git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm; fi
+
+add-all:
+	chezmoi re-add
+	chezmoi git -- add .
+	chezmoi git -- commit -m "Auto-add-all 💀"
+	chezmoi git -- push

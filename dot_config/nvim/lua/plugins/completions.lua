@@ -103,6 +103,7 @@ return {
 					{ name = "luasnip" }, -- For luasnip user
 					{ name = "buffer" }, -- For buffer word completion
 					{ name = "path" }, -- For path completion
+					{ name = "codeium" }, -- codeium
 				}),
 			})
 		end,

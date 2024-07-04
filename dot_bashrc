@@ -136,6 +136,10 @@ ex ()
     echo "'$1' is not a valid file"
   fi
 }
+# zoxide
+
+eval "$(zoxide init bash)"
+alias cd="z"
 
 # eza
 alias ls="eza --color=always --git --icons=auto"
