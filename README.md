@@ -9,7 +9,8 @@ Jony Kalavera's Personalized [chezmoi](https://www.chezmoi.io) Repository
 To get started, first ensure you have all the necessary tools installed. For Arch Linux users:
 
 ```bash
-sudo pacman -Sy chezmoi
+sudo pacman -Sy chezmoi fzf fd bat btop neovim nvm tldr dust git-delta btop
+git clone git@github.com:junegunn/fzf-git.sh.git .fzf-git.sh
 ```
 
 Next, restore your dotfiles using chezmoi. Simply run:
@@ -17,7 +18,6 @@ Next, restore your dotfiles using chezmoi. Simply run:
 ```bash
 chezmoi init git@github.com:jonykalavera/madhouse.git
 chezmoi update -v
-make install
 ```
 
 For more detailed information on daily commands and usage, please consult the official [chezmoi documentation](https://www.chezmoi.io/user-guide/command-overview/#daily-commands).
