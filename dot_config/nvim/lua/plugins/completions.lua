@@ -98,6 +98,7 @@ return {
 				-- Let's configure the item's appearance
 				-- source: https://github.com/hrsh7th/nvim-cmp/wiki/Menu-Appearance
 				formatting = {
+					expandable_indicator = true,
 					-- Set order from left to right
 					-- kind: single letter indicating the type of completion
 					-- abbr: abbreviation of "word"; when not empty it is used in the menu instead of "word"

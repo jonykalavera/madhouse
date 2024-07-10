@@ -57,7 +57,7 @@ return {
 
 				-- See `:help vim.lsp.*` for documentation on any of the below functions
 				local bufopts = function(desc)
-					return { desc = "LSP/" .. desc, noremap = true, silent = true, buffer = bufnr }
+					return { desc = "LSP / " .. desc, noremap = true, silent = true, buffer = bufnr }
 				end
 				vim.keymap.set("n", "gD", vim.lsp.buf.declaration, bufopts("Go to declaration"))
 				vim.keymap.set("n", "gd", vim.lsp.buf.definition, bufopts("Go to definition"))

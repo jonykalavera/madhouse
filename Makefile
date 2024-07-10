@@ -11,7 +11,7 @@ install:
 	if [[ ! -d ~/.config/nvim/venv ]]; then python -m venv venv; fi
 	$$HOME/.config/nvim/venv/bin/pip install -r $$HOME/.config/nvim/requirements.txt
 	if [[ ! -d ~/.tmux/plugins/tpm ]]; then git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm; fi
-	if [[ ! -f ~/.emoji-prompt.sh ]]; then curl 'https://raw.githubusercontent.com/heewa/emoji-prompt/master/emoji-prompt.sh' > ~/.emoji-prompt.sh; fi
+	if [[ ! -f ~/.emoji-prompt.sh ]]; then curl 'https://raw.githubusercontent.com/jonykalavera/emoji-prompt/master/emoji-prompt.sh' > ~/.emoji-prompt.sh; fi
 	curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
 	curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 
