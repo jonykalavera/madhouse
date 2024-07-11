@@ -19,5 +19,5 @@ install:
 chezmoi-all:
 	chezmoi re-add
 	chezmoi git -- add .
-	chezmoi git -- commit -m "Auto-add-all 💀"
+	chezmoi git -- commit -m "Auto-add-all 💀 from $$(hostname)"
 	chezmoi git -- push

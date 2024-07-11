@@ -44,5 +44,3 @@ vim.api.nvim_command("autocmd FileType qf nnoremap <buffer> dd :RemoveQFItem<cr>
 
 require("keymaps")
 require("colorscheme")
-vim.opt.spell = true
-vim.opt.spelllang = "en_us"
