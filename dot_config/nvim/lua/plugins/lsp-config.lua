@@ -24,6 +24,7 @@ return {
 	},
 	{
 		"neovim/nvim-lspconfig",
+		dependencies = { "hrsh7th/cmp-nvim-lsp" },
 		config = function()
 			local cmp_capabilities = require("cmp_nvim_lsp").default_capabilities()
 			-- Set different settings for different languages' LSP
@@ -132,5 +133,56 @@ return {
 	{
 		"onsails/lspkind.nvim",
 		event = { "VimEnter" },
+		config = function()
+			require("lspkind").init({
+				-- 			-- DEPRECATED (use mode instead): enables text annotations
+				-- 			--
+				-- 			-- default: true
+				-- 			-- with_text = true,
+				--
+				-- 			-- defines how annotations are shown
+				-- 			-- default: symbol
+				-- 			-- options: 'text', 'text_symbol', 'symbol_text', 'symbol'
+				-- 			mode = "symbol_text",
+				--
+				-- 			-- default symbol map
+				-- 			-- can be either 'default' (requires nerd-fonts font) or
+				-- 			-- 'codicons' for codicon preset (requires vscode-codicons font)
+				-- 			--
+				-- 			-- default: 'default'
+				-- 			preset = "codicons",
+				--
+				-- 			-- override preset symbols
+				-- 			--
+				-- 			-- default: {}
+				-- 			symbol_map = {
+				-- 				Text = "󰉿",
+				-- 				Method = "󰆧",
+				-- 				Function = "󰊕",
+				-- 				Constructor = "",
+				-- 				Field = "󰜢",
+				-- 				Variable = "󰀫",
+				-- 				Class = "󰠱",
+				-- 				Interface = "",
+				-- 				Module = "",
+				-- 				Property = "󰜢",
+				-- 				Unit = "󰑭",
+				-- 				Value = "󰎠",
+				-- 				Enum = "",
+				-- 				Keyword = "󰌋",
+				-- 				Snippet = "",
+				-- 				Color = "󰏘",
+				-- 				File = "󰈙",
+				-- 				Reference = "󰈇",
+				-- 				Folder = "󰉋",
+				-- 				EnumMember = "",
+				-- 				Constant = "󰏿",
+				-- 				Struct = "󰙅",
+				-- 				Event = "",
+				-- 				Operator = "󰆕",
+				-- 				TypeParameter = "",
+				-- 			},
+			})
+		end,
 	},
 }
