@@ -145,4 +145,10 @@ return {
 			require("lspkind").init({})
 		end,
 	},
+	{
+		"j-hui/fidget.nvim",
+		opts = {
+			-- options
+		},
+	},
 }
