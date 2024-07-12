@@ -18,7 +18,15 @@ return {
 		"williamboman/mason-lspconfig.nvim",
 		config = function()
 			require("mason-lspconfig").setup({
-				ensure_installed = { "lua_ls", "pylsp", "rust_analyzer", "ruff", "marksman", "harper_ls", "pyright" },
+				ensure_installed = {
+					"lua_ls",
+					"pylsp",
+					"rust_analyzer",
+					"ruff",
+					"marksman",
+					"harper_ls",
+					"pyright",
+				},
 			})
 		end,
 	},
@@ -39,12 +47,12 @@ return {
 			local opts = function(desc)
 				return { desc = desc, noremap = true, silent = true }
 			end
-			vim.keymap.set("n", "<space>e", vim.diagnostic.open_float, opts("Open diagnostics popup"))
+			vim.keymap.set("n", "<Leader>de", vim.diagnostic.open_float, opts("Open diagnostics popup"))
 			vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, opts("Go to previous diagnostic"))
 			vim.keymap.set("n", "]d", vim.diagnostic.goto_next, opts("Go to next diagnostic"))
 			vim.keymap.set(
 				"n",
-				"<space>q",
+				"<leader>dq",
 				vim.diagnostic.setloclist,
 				opts("Add buffer diagnostics to the location list.")
 			)
@@ -54,7 +62,7 @@ return {
 			---@diagnostic disable-next-line: unused-local
 			local on_attach = function(client, bufnr)
 				-- Enable completion triggered by <c-x><c-o>
-				vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
+				vim.api.nvim_set_option_value("omnifunc", "v:lua.vim.lsp.omnifunc", { buf = bufnr })
 
 				-- See `:help vim.lsp.*` for documentation on any of the below functions
 				local bufopts = function(desc)
@@ -65,29 +73,29 @@ return {
 				vim.keymap.set("n", "K", vim.lsp.buf.hover, bufopts("Show hover information"))
 				vim.keymap.set("n", "gi", vim.lsp.buf.implementation, bufopts("Show implentations"))
 				vim.keymap.set("n", "H", vim.lsp.buf.signature_help, bufopts("Show signature help"))
-				vim.keymap.set("n", "<space>wa", vim.lsp.buf.add_workspace_folder, bufopts("Add workspace folder"))
+				vim.keymap.set("n", "<Leader>wa", vim.lsp.buf.add_workspace_folder, bufopts("Add workspace folder"))
 				vim.keymap.set(
 					"n",
-					"<space>wr",
+					"<Leader>wr",
 					vim.lsp.buf.remove_workspace_folder,
 					bufopts("Remove workspace folder")
 				)
-				vim.keymap.set("n", "<space>wl", function()
+				vim.keymap.set("n", "<Leader>wl", function()
 					print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
 				end, bufopts("Show all workspace folders"))
-				vim.keymap.set("n", "<space>D", vim.lsp.buf.type_definition, bufopts("Go to type definition"))
+				vim.keymap.set("n", "<Leader>D", vim.lsp.buf.type_definition, bufopts("Go to type definition"))
 				vim.keymap.set("n", "<F2>", vim.lsp.buf.rename, bufopts("Rename globally"))
-				vim.keymap.set("n", "<space>ca", vim.lsp.buf.code_action, bufopts("Show code actions"))
+				vim.keymap.set("n", "<Leader>ca", vim.lsp.buf.code_action, bufopts("Show code actions"))
 				vim.keymap.set("n", "gr", vim.lsp.buf.references, bufopts("Show references"))
-				vim.keymap.set("n", "<space>f", function()
+				vim.keymap.set("n", "<Leader>f", function()
 					vim.lsp.buf.format({ async = true })
 				end, bufopts("Format buffer"))
 			end
 
 			-- Configure each language
 			-- How to add LSP for a specific language?
-			-- 1. use `:Mason` to install corresponding LSP
-			-- 2. add configuration below
+			-- 1. Use `:Mason` to install corresponding LSP
+			-- 2. Add configuration below
 			lspconfig.lua_ls.setup({
 				on_attach = on_attach,
 				capabilities = cmp_capabilities,
@@ -134,55 +142,7 @@ return {
 		"onsails/lspkind.nvim",
 		event = { "VimEnter" },
 		config = function()
-			require("lspkind").init({
-				-- 			-- DEPRECATED (use mode instead): enables text annotations
-				-- 			--
-				-- 			-- default: true
-				-- 			-- with_text = true,
-				--
-				-- 			-- defines how annotations are shown
-				-- 			-- default: symbol
-				-- 			-- options: 'text', 'text_symbol', 'symbol_text', 'symbol'
-				-- 			mode = "symbol_text",
-				--
-				-- 			-- default symbol map
-				-- 			-- can be either 'default' (requires nerd-fonts font) or
-				-- 			-- 'codicons' for codicon preset (requires vscode-codicons font)
-				-- 			--
-				-- 			-- default: 'default'
-				-- 			preset = "codicons",
-				--
-				-- 			-- override preset symbols
-				-- 			--
-				-- 			-- default: {}
-				-- 			symbol_map = {
-				-- 				Text = "󰉿",
-				-- 				Method = "󰆧",
-				-- 				Function = "󰊕",
-				-- 				Constructor = "",
-				-- 				Field = "󰜢",
-				-- 				Variable = "󰀫",
-				-- 				Class = "󰠱",
-				-- 				Interface = "",
-				-- 				Module = "",
-				-- 				Property = "󰜢",
-				-- 				Unit = "󰑭",
-				-- 				Value = "󰎠",
-				-- 				Enum = "",
-				-- 				Keyword = "󰌋",
-				-- 				Snippet = "",
-				-- 				Color = "󰏘",
-				-- 				File = "󰈙",
-				-- 				Reference = "󰈇",
-				-- 				Folder = "󰉋",
-				-- 				EnumMember = "",
-				-- 				Constant = "󰏿",
-				-- 				Struct = "󰙅",
-				-- 				Event = "",
-				-- 				Operator = "󰆕",
-				-- 				TypeParameter = "",
-				-- 			},
-			})
+			require("lspkind").init({})
 		end,
 	},
 }
