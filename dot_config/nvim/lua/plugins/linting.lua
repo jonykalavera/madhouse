@@ -35,7 +35,7 @@ return {
 	{
 		"WhoIsSethDaniel/toggle-lsp-diagnostics.nvim",
 		config = function()
-			require("toggle_lsp_diagnostics").init({ underline = true, virtual_text = false })
+			require("toggle_lsp_diagnostics").init({ underline = true })
 			vim.keymap.set(
 				"n",
 				"<leader>tlu",
