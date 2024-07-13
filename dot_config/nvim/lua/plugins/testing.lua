@@ -12,6 +12,7 @@ return {
 	},
 	config = function()
 		local neotest = require("neotest")
+		---@diagnostic disable-next-line: missing-fields
 		neotest.setup({
 			adapters = {
 				require("neotest-python")({
@@ -25,6 +26,7 @@ return {
 					jestCommand = "npm test --",
 					jestConfigFile = "custom.jest.config.ts",
 					env = { CI = true },
+					---@diagnostic disable-next-line: unused-local
 					cwd = function(path)
 						return vim.g.jest_tests_path or vim.fn.getcwd()
 					end,
@@ -37,6 +39,7 @@ return {
 			neotest.run.run()
 		end, { desc = "Run nearest test" })
 		vim.keymap.set("n", "<leader>td", function()
+			---@diagnostic disable-next-line: missing-fields
 			neotest.run.run({ strategy = "dap" })
 		end, { desc = "Debug nearest test" })
 		vim.keymap.set("n", "<leader>tf", function()
