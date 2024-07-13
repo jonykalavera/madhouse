@@ -141,16 +141,22 @@ ex ()
 # USER CONFIG
 ###############################################################################
 
+###############################################################################
 # zoxide
+###############################################################################
 
 eval "$(zoxide init bash)"
 alias cd="z"
 
+###############################################################################
 # eza
+###############################################################################
 alias ls="eza --color=always --git --icons=auto"
 alias ll="ls -al"
 
+###############################################################################
 # fzf
+###############################################################################
 eval "$(fzf --bash)"
 source  ~/.fzf-git.sh/fzf-git.sh
 # Use fd instead of find --
@@ -168,37 +174,47 @@ _fzf_compgen_dir() {
   fd --type=d --hidden --exclude .git . "$1"
 }
 
+###############################################################################
 # Custom prompt
+###############################################################################
 
 source /usr/share/git/completion/git-prompt.sh
 source ~/.emoji-prompt.sh
 __UPDATE_PROMPT() {
-	PS1='`if [ "$VIRTUAL_ENV_PROMPT" == "" ]; then echo ""; else echo "\[\e[00;33m\]█\[\e[43;30m\]\[\e[00;33m\]█\[\e[00;33m\] $VIRTUAL_ENV_PROMPT\[\e[00m\] "; fi`$(CURRENT_EMOJI_RAW) \[\e[01;30m\]\t`if [ $? = 0 ]; then echo "\[\e[32m\] 💀 "; else echo "\[\e[31m\] ☠️ "; fi`\[\e[00;37m\]\u@\h\[\e[01;37m\]:`[[ $(git status 2> /dev/null | head -n2 | tail -n1) != "# Changes to be committed:" ]] && echo "\[\e[31m\]" || echo "\[\e[33m\]"``[[ $(git status 2> /dev/null | tail -n1) != "nothing to commit (working directory clean)" ]] || echo "\[\e[32m\]"`$(__git_ps1 "\[\e[00;31m\]█\[\e[41;30m\]\[\e[00;31m\]█\[\e[00;31m\] %s \[\e[00m\]")\[\e[01;34m\]\w\[\e[00m\]\n\n\$ '
+	PS1='`if [ "$VIRTUAL_ENV_PROMPT" == "" ]; then echo ""; else echo "\[\e[00;33m\]\[\e[43;30m\] $VIRTUAL_ENV_PROMPT\[\e[00;33m\]\[\e[00m\] "; fi`$(CURRENT_EMOJI_RAW) \[\e[01;30m\]\t`if [ $? = 0 ]; then echo "\[\e[32m\] 💀 "; else echo "\[\e[31m\] ☠️ "; fi`\[\e[00;37m\]\u\[\e[01;37m\]:`[[ $(git status 2> /dev/null | head -n2 | tail -n1) != "# Changes to be committed:" ]] && echo "\[\e[31m\]" || echo "\[\e[33m\]"``[[ $(git status 2> /dev/null | tail -n1) != "nothing to commit (working directory clean)" ]] || echo "\[\e[32m\]"`$(__git_ps1 "\[\e[00;31m\] \[\e[41;30m\] %s\[\e[00;31m\] \[\e[00;31m\]\[\e[00m\]")\[\e[01;34m\]\w\[\e[00m\]\n\n\$ '
 }
 export PROMPT_COMMAND="__UPDATE_PROMPT"
 
-
-
-
-
+###############################################################################
 # PyEnv
+###############################################################################
 export PYENV_ROOT="$HOME/.pyenv"
 command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
 eval "$(pyenv init -)"
 
-# autocomplete makefile targets
+###############################################################################
+# Autocomplete makefile targets
+###############################################################################
 complete -W "\`grep -oE '^[a-zA-Z0-9_.-]+:([^=]|$)' ?akefile | sed 's/[^a-zA-Z0-9_.-]*$//'\`" make
 
 
+###############################################################################
+# nvm
+###############################################################################
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
+###############################################################################
+# tilix
+###############################################################################
 if [ $TILIX_ID ] || [ $VTE_VERSION ]; then
   source /etc/profile.d/vte.sh
 fi
 
+###############################################################################
 # Gnu GPG
+###############################################################################
 if [ -f $HOME/.gpg-agent-info ]; then
     . $HOME/.gpg-agent-info
     export GPG_AGENT_INFO
@@ -222,13 +238,17 @@ if [ -n "${GPG_AGENT_INFO}" ]; then
 fi
 export GPG_TTY=$(tty)
 
+###############################################################################
 # Cargo
+###############################################################################
 . "$HOME/.cargo/env"
 
 # autocomplete makefile targets
 complete -W "\`grep -oE '^[a-zA-Z0-9_.-]+:([^=]|$)' ?akefile | sed 's/[^a-zA-Z0-9_.-]*$//'\`" make
 
+###############################################################################
 # Custom Alias
+###############################################################################
 alias git-prune-branches='git branch --merged origin/master | xargs git branch -d'
 alias vim=nvim
 alias with-gpt="OPENAI_API_KEY=\"\$(op read op://Personal/ChatGPT/password --no-newline)\" "
