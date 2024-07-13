@@ -1,11 +1,5 @@
 return {
 	{
-		"bwintertkb/visual_wrap.nvim",
-		config = function()
-			require("visual_wrap").setup()
-		end,
-	},
-	{
 		"smoka7/multicursors.nvim",
 		event = "VeryLazy",
 		dependencies = {
