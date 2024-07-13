@@ -22,6 +22,7 @@ return {
 					"markdown",
 					"bash",
 					"json",
+					"sql",
 				},
 				sync_install = false,
 				highlight = { enable = true },
@@ -78,4 +79,5 @@ return {
 			},
 		}),
 	},
+	{ "aklt/plantuml-syntax" },
 }
