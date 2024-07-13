@@ -5,7 +5,7 @@ return {
 		"nvim-lua/plenary.nvim",
 		"nvim-tree/nvim-web-devicons",
 		"MunifTanjim/nui.nvim",
-		-- "3rd/image.nvim",
+		"3rd/image.nvim",
 		{
 			"s1n7ax/nvim-window-picker",
 			version = "2.*",
@@ -34,15 +34,15 @@ return {
 			filtered_items = {
 				show_hidden_count = false,
 				never_show = {
-					'.DS_Store',
+					".DS_Store",
 				},
 			},
 		},
 		default_component_configs = {
 			indent = {
 				with_expanders = true,
-				expander_collapsed = '',
-				expander_expanded = '',
+				expander_collapsed = "",
+				expander_expanded = "",
 			},
 		},
 		-- others config

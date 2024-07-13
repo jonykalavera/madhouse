@@ -5,7 +5,41 @@ clean-downloads:
 	cd Downloads && java -jar DownloadsOrganizer.jar
 
 install:	
-	sudo pacman -Sy chezmoi fzf fd bat btop neovim tldr dust git-delta btop tmux tmuxp zoxide ripgrep pyenv lazygit eza
+	sudo pamac install \
+		bat btop btop \
+		chezmoi \
+		docker \
+		docker-compose \
+		dust \
+		eza \
+		fd \
+		fzf \
+		git\
+		lazygit \
+		neovim \
+		pyenv \
+		ripgrep \
+		tldr \
+		tmux \
+		tmuxp \
+		zoxide \
+		git-delta \
+		imv \
+		github-cli \
+		dry-bin \
+		redis \
+		entr \
+		plantuml \
+		feh \
+		1password \
+		1password-cli \
+		mariadb-clients \
+		mariadb-libs \
+		awsvpnclient \
+		k9s
+
+
+
 	if [[ ! -d $$HOME/.fzf-git.sh ]]; then git clone git@github.com:junegunn/fzf-git.sh.git .fzf-git.sh; fi
 	cd .config/nvim
 	if [[ ! -d ~/.config/nvim/venv ]]; then python -m venv ~/.config/nvim/venv; fi
