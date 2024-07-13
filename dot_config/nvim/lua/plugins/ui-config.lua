@@ -156,7 +156,7 @@ return {
 			})
 			require("mini.pairs").setup()
 			require("mini.operators").setup()
-			require("mini.animate").setup()
+			-- require("mini.animate").setup()
 		end,
 	},
 }
