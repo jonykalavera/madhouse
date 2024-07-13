@@ -25,7 +25,7 @@ return {
 					"ruff",
 					"marksman",
 					"harper_ls",
-					"pyright",
+					"ruff_lsp",
 				},
 			})
 		end,
@@ -121,7 +121,7 @@ return {
 				capabilities = cmp_capabilities,
 				filetypes = { "python" },
 			})
-			lspconfig.pyright.setup({
+			lspconfig.ruff_lsp.setup({
 				on_attach = on_attach,
 				capabilities = cmp_capabilities,
 				filetypes = { "python" },
