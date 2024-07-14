@@ -204,7 +204,12 @@ _fzf_compgen_dir() {
 source /usr/share/git/completion/git-prompt.sh
 source ~/.emoji-prompt.sh
 __UPDATE_PROMPT() {
-	PS1='`if [ "$VIRTUAL_ENV_PROMPT" == "" ]; then echo ""; else echo "\[\e[00;33m\]\[\e[43;30m\] $VIRTUAL_ENV_PROMPT\[\e[00;33m\]\[\e[00m\] "; fi`$(CURRENT_EMOJI_RAW) \[\e[01;30m\]\t`if [ $? = 0 ]; then echo "\[\e[32m\] 💀 "; else echo "\[\e[31m\] ☠️ "; fi`\[\e[00;37m\]\u\[\e[01;37m\]:`[[ $(git status 2> /dev/null | head -n2 | tail -n1) != "# Changes to be committed:" ]] && echo "\[\e[31m\]" || echo "\[\e[33m\]"``[[ $(git status 2> /dev/null | tail -n1) != "nothing to commit (working directory clean)" ]] || echo "\[\e[32m\]"`$(__git_ps1 "\[\e[00;31m\] \[\e[41;30m\] %s\[\e[00;31m\] \[\e[00;31m\]\[\e[00m\]")\[\e[01;34m\]\w\[\e[00m\]\n\n\$ '
+	if [ $? = 0 ]; then 
+		STATUS_CODE_ICON=" 💀 ";
+	else
+		STATUS_CODE_ICON=" 🩸 ";
+	fi;
+	PS1='`if [ "$VIRTUAL_ENV_PROMPT" == "" ]; then echo ""; else echo "\[\e[00;33m\]\[\e[43;30m\] $VIRTUAL_ENV_PROMPT\[\e[00;33m\]\[\e[00m\] "; fi`$(CURRENT_EMOJI_RAW) \[\e[01;30m\]\t$STATUS_CODE_ICON\[\e[00;37m\]\u\[\e[01;37m\]:`[[ $(git status 2> /dev/null | head -n2 | tail -n1) != "# Changes to be committed:" ]] && echo "\[\e[31m\]" || echo "\[\e[33m\]"``[[ $(git status 2> /dev/null | tail -n1) != "nothing to commit (working directory clean)" ]] || echo "\[\e[32m\]"`$(__git_ps1 "\[\e[00;31m\] \[\e[41;30m\] %s\[\e[00;31m\] \[\e[00;31m\]\[\e[00m\]")\[\e[01;34m\]\w\[\e[00m\]\n\n\$ '
 }
 export PROMPT_COMMAND="__UPDATE_PROMPT"
 
