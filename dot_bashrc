@@ -205,7 +205,7 @@ source /usr/share/git/completion/git-prompt.sh
 source ~/.emoji-prompt.sh
 __UPDATE_PROMPT() {
 	STATUS_CODE_ICON=$([[ $? = 0 ]] && echo '💀' || echo '🩸');
-	PYTHON_BADGE=$([[ "$VIRTUAL_ENV_PROMPT" == "" ]] && echo '' || echo -e "\e[00;33m\e[43;30m $VIRTUAL_ENV_PROMPT\e[00;33m\e[00m ");
+	PYTHON_BADGE=$([[ "$VIRTUAL_ENV_PROMPT" == "" ]] && echo '' || echo -e "\e[00;34m\e[44;30m $VIRTUAL_ENV_PROMPT\e[00;34m\e[00m ");
 	if [[ $(git status 2> /dev/null | head -n2 | tail -n1) == "Changes to be committed:" ]]; then
 		GIT_BADGE=$(__git_ps1 "\e[00;33m \e[43;30m %s\e[00;33m \e[00;33m\e[00m");
 	else
