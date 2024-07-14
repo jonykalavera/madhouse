@@ -1,0 +1,18 @@
+session_name: xam
+windows:
+  - focus: "true"
+    panes:
+      - focus: "true"
+        shell_command: poetry run nvim
+      - poetry shell
+    start_directory: /home/jony/code/xam
+    window_name: editor
+  - panes:
+      - docker compose up db
+      - docker compose up redis
+      - make start-dev-webpack
+      - focus: "true"
+        shell_command: make poetry.start-dev-webserver
+    layout: tiled
+    start_directory: /home/jony/code/xam
+    window_name: servers
