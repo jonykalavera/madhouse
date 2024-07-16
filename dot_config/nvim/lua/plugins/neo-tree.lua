@@ -19,7 +19,7 @@ return {
 							-- if the file type is one of following, the window will be ignored
 							filetype = { "neo-tree", "neo-tree-popup", "notify", "barbar" },
 							-- if the buffer type is one of following, the window will be ignored
-							buftype = { "terminal", "quickfix" },
+							buftype = { "terminal", "quickfix", "nofile" },
 						},
 					},
 				})

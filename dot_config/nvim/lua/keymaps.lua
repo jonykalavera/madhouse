@@ -14,6 +14,7 @@ end
 -- Search
 vim.keymap.set("n", "<leader>ss", function()
 	vim.cmd('let @/ = ""')
+	require("mini.map").refresh()
 end, opts("Clear search")) --
 
 -- Hint: see `:h vim.map.set()`

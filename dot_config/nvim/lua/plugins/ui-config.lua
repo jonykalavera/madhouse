@@ -47,11 +47,28 @@ return {
 	},
 	{
 		"nvim-lualine/lualine.nvim",
-		dependencies = { "nvim-tree/nvim-web-devicons" },
+		dependencies = { "nvim-tree/nvim-web-devicons", "folke/trouble.nvim" },
 		config = function()
+			local trouble = require("trouble")
+			local symbols = trouble.statusline({
+				mode = "lsp_document_symbols",
+				groups = {},
+				title = false,
+				filter = { range = true },
+				format = "{kind_icon}{symbol.name:Normal}",
+				-- The following line is needed to fix the background color
+				-- Set it to the lualine section you want to use
+				hl_group = "lualine_c_normal",
+			})
 			require("lualine").setup({
 				options = {
 					theme = "molokai",
+					sections = {
+						lualine_c = {
+							symbols.get,
+							cond = symbols.has,
+						},
+					},
 				},
 			})
 		end,
@@ -83,21 +100,22 @@ return {
 	{
 		"echasnovski/mini.nvim",
 		version = "*",
-		-- dependencies = { "lewis6991/gitsigns.nvim" },
+		dependencies = { "lewis6991/gitsigns.nvim" },
 		config = function()
-			local map = require("mini.map")
-			local encode = map.gen_encode_symbols.dot("3x2")
-			local search_integration = map.gen_integration.builtin_search()
-			local diagnostic_integration = map.gen_integration.diagnostic({
+			local minmap = require("mini.map")
+			local encode = minmap.gen_encode_symbols.dot("3x2")
+			local search_integration = minmap.gen_integration.builtin_search()
+			local diagnostic_integration = minmap.gen_integration.diagnostic({
 				error = "DiagnosticFloatingError",
 				warn = "DiagnosticFloatingWarn",
 				info = "DiagnosticFloatingInfo",
 				hint = "DiagnosticFloatingHint",
 			})
-			local diff_integration = map.gen_integration.diff()
-			map.setup({
+			local diff_integration = minmap.gen_integration.diff()
+			local gitsigns_integration = minmap.gen_integration.gitsigns()
+			minmap.setup({
 				-- Highlight integrations (none by default)
-				integrations = { diagnostic_integration, search_integration, diff_integration },
+				integrations = { diagnostic_integration, search_integration, diff_integration, gitsigns_integration },
 
 				-- Symbols used to display data
 				symbols = {
@@ -157,6 +175,41 @@ return {
 			require("mini.pairs").setup()
 			require("mini.operators").setup()
 			-- require("mini.animate").setup()
+			require("mini.visits").setup()
+			local make_select_path = function(select_global, recency_weight)
+				local visits = require("mini.visits")
+				local sort = visits.gen_sort.default({ recency_weight = recency_weight })
+				local select_opts = { sort = sort }
+				return function()
+					local cwd = select_global and "" or vim.fn.getcwd()
+					visits.select_path(cwd, select_opts)
+				end
+			end
+
+			local map = function(lhs, desc, ...)
+				vim.keymap.set("n", lhs, make_select_path(...), { desc = desc })
+			end
+
+			-- Adjust LHS and description to your liking
+			map("<Leader>vr", "Select recent (all)", true, 1)
+			map("<Leader>vR", "Select recent (cwd)", false, 1)
+			map("<Leader>vy", "Select frecent (all)", true, 0.5)
+			map("<Leader>vY", "Select frecent (cwd)", false, 0.5)
+			map("<Leader>vf", "Select frequent (all)", true, 0)
+			map("<Leader>vF", "Select frequent (cwd)", false, 0)
+			local hipatterns = require("mini.hipatterns")
+			hipatterns.setup({
+				highlighters = {
+					-- Highlight standalone 'FIXME', 'HACK', 'TODO', 'NOTE'
+					fixme = { pattern = "%f[%w]()FIXME()%f[%W]", group = "MiniHipatternsFixme" },
+					hack = { pattern = "%f[%w]()HACK()%f[%W]", group = "MiniHipatternsHack" },
+					todo = { pattern = "%f[%w]()TODO()%f[%W]", group = "MiniHipatternsTodo" },
+					note = { pattern = "%f[%w]()NOTE()%f[%W]", group = "MiniHipatternsNote" },
+
+					-- Highlight hex color strings (`#rrggbb`) using that color
+					hex_color = hipatterns.gen_highlighter.hex_color(),
+				},
+			})
 		end,
 	},
 }

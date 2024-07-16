@@ -87,9 +87,9 @@ return {
 				vim.keymap.set("n", "<F2>", vim.lsp.buf.rename, bufopts("Rename globally"))
 				vim.keymap.set("n", "<Leader>ca", vim.lsp.buf.code_action, bufopts("Show code actions"))
 				vim.keymap.set("n", "gr", vim.lsp.buf.references, bufopts("Show references"))
-				vim.keymap.set("n", "<Leader>f", function()
-					vim.lsp.buf.format({ async = true })
-				end, bufopts("Format buffer"))
+				-- vim.keymap.set("n", "<Leader>f", function()
+				-- 	vim.lsp.buf.format({ async = true })
+				-- end, bufopts("Format buffer"))
 			end
 
 			-- Configure each language

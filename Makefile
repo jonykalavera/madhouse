@@ -38,7 +38,8 @@ install:
 		awsvpnclient \
 		k9s \
 		luarocks \
-		imagemagick
+		imagemagick \
+		starship
 	sudo luarocks install magick --lua-version 5.1
 	if [[ ! -d $$HOME/.fzf-git.sh ]]; then git clone git@github.com:junegunn/fzf-git.sh.git .fzf-git.sh; fi
 	cd .config/nvim
