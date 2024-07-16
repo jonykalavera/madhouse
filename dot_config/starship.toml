@@ -8,9 +8,7 @@ $directory\
 $git_branch\
 $git_status\
 [](fg:#FCA17D bg:#86BBD8)\
-$golang\
 $nodejs\
-$rust\
 $python\
 [](fg:#86BBD8 bg:#06969A)\
 $docker_context\

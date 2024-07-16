@@ -9,6 +9,20 @@ return {
 		config = function()
 			local dap = require("dap")
 			local dapui = require("dapui")
+			dap.adapters.godot = {
+				type = "server",
+				host = "127.0.0.1",
+				port = 6006,
+			}
+			dap.configurations.gdscript = {
+				{
+					type = "godot",
+					request = "launch",
+					name = "Launch scene",
+					project = "${workspaceFolder}",
+					launch_scene = true,
+				},
+			}
 			dap.listeners.before.attach.dapui_config = function()
 				vim.cmd(":Neotree close<CR>")
 				dapui.open()
@@ -39,7 +53,7 @@ return {
 			-- vnoremap <silent> <leader>ds <ESC>:lua require('dap-python').debug_selection()<CR>
 			vim.keymap.set("v", "<leader>ds", dap_python.test_class, opts("Test current class"))
 
-			dapui.setup({})
+			dapui.setup()
 		end,
 	},
 }

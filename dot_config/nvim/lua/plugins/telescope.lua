@@ -63,14 +63,14 @@ return {
 			-- GIT pickers
 			vim.keymap.set(
 				"n",
-				"<Leader>gb",
+				"<Leader>Gb",
 				builtin.git_branches,
 				{ desc = "List git branches for current directory" }
 			)
-			vim.keymap.set("n", "<Leader>gc", builtin.git_commits, { desc = "List git commits for current directory." })
-			vim.keymap.set("n", "<Leader>gC", builtin.git_bcommits, { desc = "List git commits for current buffer." })
-			vim.keymap.set("n", "<Leader>gs", builtin.git_status, { desc = "Lists git status for current directory." })
-			vim.keymap.set("n", "<Leader>gS", builtin.git_stash, { desc = "Lists git stash for current directory." })
+			vim.keymap.set("n", "<Leader>Gc", builtin.git_commits, { desc = "List git commits for current directory." })
+			vim.keymap.set("n", "<Leader>GC", builtin.git_bcommits, { desc = "List git commits for current buffer." })
+			vim.keymap.set("n", "<Leader>Gs", builtin.git_status, { desc = "Lists git status for current directory." })
+			vim.keymap.set("n", "<Leader>GS", builtin.git_stash, { desc = "Lists git stash for current directory." })
 			vim.keymap.set(
 				"n",
 				"<leader>fQ",

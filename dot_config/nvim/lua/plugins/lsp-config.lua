@@ -34,7 +34,7 @@ return {
 		"neovim/nvim-lspconfig",
 		dependencies = { "hrsh7th/cmp-nvim-lsp" },
 		config = function()
-			local cmp_capabilities = require("cmp_nvim_lsp").default_capabilities()
+			local capabilities = require("cmp_nvim_lsp").default_capabilities()
 			-- Set different settings for different languages' LSP
 			-- LSP list: https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md
 			-- How to use setup({}): https://github.com/neovim/nvim-lspconfig/wiki/Understanding-setup-%7B%7D
@@ -98,12 +98,12 @@ return {
 			-- 2. Add configuration below
 			lspconfig.lua_ls.setup({
 				on_attach = on_attach,
-				capabilities = cmp_capabilities,
+				capabilities = capabilities,
 				filetypes = { "lua" },
 			})
 			lspconfig.pylsp.setup({
 				on_attach = on_attach,
-				capabilities = cmp_capabilities,
+				capabilities = capabilities,
 				filetypes = { "python" },
 				settings = {
 					pylsp = {
@@ -118,23 +118,28 @@ return {
 			})
 			lspconfig.ruff.setup({
 				on_attach = on_attach,
-				capabilities = cmp_capabilities,
+				capabilities = capabilities,
 				filetypes = { "python" },
 			})
 			lspconfig.ruff_lsp.setup({
 				on_attach = on_attach,
-				capabilities = cmp_capabilities,
+				capabilities = capabilities,
 				filetypes = { "python" },
 			})
 			lspconfig.marksman.setup({
 				on_attach = on_attach,
-				capabilities = cmp_capabilities,
+				capabilities = capabilities,
 				filetypes = { "markdown" },
 			})
 			lspconfig.harper_ls.setup({
 				on_attach = on_attach,
-				capabilities = cmp_capabilities,
+				capabilities = capabilities,
 				filetypes = { "toml" },
+			})
+			lspconfig.gdscript.setup({
+				on_attach = on_attach,
+				capabilities = capabilities,
+				filetypes = { "gdscript" },
 			})
 		end,
 	},

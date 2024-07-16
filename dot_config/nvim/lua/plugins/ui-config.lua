@@ -111,11 +111,10 @@ return {
 				info = "DiagnosticFloatingInfo",
 				hint = "DiagnosticFloatingHint",
 			})
-			local diff_integration = minmap.gen_integration.diff()
 			local gitsigns_integration = minmap.gen_integration.gitsigns()
 			minmap.setup({
 				-- Highlight integrations (none by default)
-				integrations = { diagnostic_integration, search_integration, diff_integration, gitsigns_integration },
+				integrations = { diagnostic_integration, search_integration, gitsigns_integration },
 
 				-- Symbols used to display data
 				symbols = {
@@ -157,7 +156,7 @@ return {
 			vim.keymap.set("n", "<Leader>ms", MiniMap.toggle_side, { desc = "Toggle side MiniMap" })
 			vim.keymap.set("n", "<Leader>mt", MiniMap.toggle, { desc = "Toggle MiniMap" })
 			MiniMap.open()
-			require("mini.diff").setup()
+			-- require("mini.diff").setup()
 			require("mini.surround").setup({
 				mappings = {
 					add = "<Leader>sa", -- Add surrounding in Normal and Visual modes
