@@ -19,6 +19,7 @@ return {
 					markdown = { "prettier" },
 					graphql = { "prettier" },
 					lua = { "stylua" },
+					charp = { "csharpier" },
 					python = function(bufnr)
 						if conform.get_formatter_info("ruff_format", bufnr).available then
 							return { "ruff_format", "ruff_fix", "ruff_organize_imports" }

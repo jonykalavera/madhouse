@@ -25,7 +25,7 @@ return {
 					"ruff",
 					"marksman",
 					"harper_ls",
-					"ruff_lsp",
+					"csharp_ls",
 				},
 			})
 		end,
@@ -121,11 +121,6 @@ return {
 				capabilities = capabilities,
 				filetypes = { "python" },
 			})
-			lspconfig.ruff_lsp.setup({
-				on_attach = on_attach,
-				capabilities = capabilities,
-				filetypes = { "python" },
-			})
 			lspconfig.marksman.setup({
 				on_attach = on_attach,
 				capabilities = capabilities,
@@ -140,6 +135,11 @@ return {
 				on_attach = on_attach,
 				capabilities = capabilities,
 				filetypes = { "gdscript" },
+			})
+			lspconfig.csharp_ls.setup({
+				on_attach = on_attach,
+				capabilities = capabilities,
+				filetypes = { "csharp", "cs" },
 			})
 		end,
 	},
