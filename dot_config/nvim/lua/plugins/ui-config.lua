@@ -155,7 +155,6 @@ return {
 				},
 			})
 			require("mini.pairs").setup()
-			require("mini.operators").setup()
 			-- require("mini.animate").setup()
 			require("mini.visits").setup()
 			local make_select_path = function(select_global, recency_weight)
