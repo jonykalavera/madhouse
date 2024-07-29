@@ -3,8 +3,25 @@ return {
 		"nvim-treesitter/nvim-treesitter",
 		build = ":TSUpdate",
 		config = function()
+			vim.filetype.add({
+				extension = {
+					jst = "embedded_template",
+				},
+			})
+			local parser_config = require("nvim-treesitter.parsers").get_parser_configs()
+			parser_config.embedded_template = {
+				install_info = {
+					url = "https://github.com/tree-sitter/tree-sitter-embedded-template.git", -- local path or git repo
+					files = { "src/parser.c" }, -- note that some parsers also require src/scanner.c or src/scanner.cc
+					-- optional entries:
+					branch = "master", -- default branch in case of git repo if different from master
+					generate_requires_npm = false, -- if stand-alone parser without npm dependencies
+					requires_generate_from_grammar = true, -- if folder contains pre-generated src/parser.c
+				},
+				filetype = "embedded_template", -- if filetype does not match the parser name
+			}
+			vim.treesitter.language.register("embedded_template", "embedded_template")
 			local configs = require("nvim-treesitter.configs")
-
 			configs.setup({
 				ensure_installed = {
 					"c",
@@ -25,8 +42,9 @@ return {
 					"sql",
 				},
 				sync_install = false,
-				highlight = { enable = true },
+				highlight = { enable = true, additional_vim_regex_highlighting = true },
 				indent = { enable = true },
+				auto_install = true,
 			})
 		end,
 	},

@@ -23,6 +23,10 @@ end, opts("Clear search")) --
 -- vim.keymap.set("n", "<C-j>", "<C-w>j", opts("Go to lower window"))
 -- vim.keymap.set("n", "<C-k>", "<C-w>k", opts("Go to upper window"))
 -- vim.keymap.set("n", "<C-l>", "<C-w>l", opts("Go to right window"))
+vim.keymap.set("n", "<leader>ww", function()
+	vim.cmd("1,$bd!")
+	vim.cmd("Alpha")
+end, opts("Close all windows"))
 
 -- Resize with arrows
 -- delta: 2 lines

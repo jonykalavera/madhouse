@@ -16,5 +16,6 @@ python-lsp-ruff==2.2.1
 python-lsp-server==1.11.0
 ruff==0.5.0
 tomli==2.0.1
+tree-sitter-underscore @ git+ssh://git@github.com/AlexJMohr/tree-sitter-underscore.git@73829306c2ebf9a15ab3778cb96fb7613ea5b36e
 typing_extensions==4.12.2
 ujson==5.10.0

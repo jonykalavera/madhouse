@@ -10,8 +10,11 @@ return {
 		config = function()
 			local telescope = require("telescope")
 			local builtin = require("telescope.builtin")
+			vim.keymap.set("n", "<C-S-p>", function(opts)
+				builtin.git_files(opts, { sorter = require("mini.visits").gen_sort.default(), hidden = true })
+			end, { desc = "Lists GIT files in your current working directory" })
 			vim.keymap.set("n", "<C-p>", function(opts)
-				builtin.find_files(opts, { sorter = require("mini.visits").gen_sort.default() })
+				builtin.find_files(opts, { sorter = require("mini.visits").gen_sort.default(), hidden = true })
 			end, { desc = "Lists files in your current working directory" })
 			vim.keymap.set("n", "<Leader>fs", builtin.lsp_document_symbols, { desc = "Find syntax symbols in buffer." })
 			vim.keymap.set(

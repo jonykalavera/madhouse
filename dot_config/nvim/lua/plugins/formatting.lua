@@ -27,6 +27,7 @@ return {
 							return { "isort", "black" }
 						end
 					end,
+					gdscript = { "gdtoolkit" },
 				},
 				format_on_save = {
 					lsp_fallback = true,

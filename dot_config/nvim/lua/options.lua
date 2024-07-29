@@ -36,6 +36,7 @@ vim.opt.inccommand = "split" -- "for incsearch while sub
 -- Spelling
 vim.opt.spell = true
 vim.opt.spelllang = "en_us"
+vim.opt.spelloptions = "camel,noplainbuffer"
 
 -- Python defaults
 vim.g.python3_host_prog = "~/.config/nvim/venv/bin/python"

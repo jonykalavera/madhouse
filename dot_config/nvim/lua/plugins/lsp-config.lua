@@ -3,15 +3,7 @@ return {
 	{
 		"williamboman/mason.nvim",
 		config = function()
-			require("mason").setup({
-				ui = {
-					icons = {
-						package_installed = "✓",
-						package_pending = "➜",
-						package_uninstalled = "✗",
-					},
-				},
-			})
+			require("mason").setup({})
 		end,
 	},
 	{
@@ -26,6 +18,7 @@ return {
 					"marksman",
 					"harper_ls",
 					"csharp_ls",
+					"eslint",
 				},
 			})
 		end,
@@ -108,6 +101,7 @@ return {
 				settings = {
 					pylsp = {
 						plugins = {
+							pyflakes = { enabled = false },
 							pycodestyle = {
 								ignore = {},
 								maxLineLength = 120,
@@ -140,6 +134,42 @@ return {
 				on_attach = on_attach,
 				capabilities = capabilities,
 				filetypes = { "csharp", "cs" },
+			})
+			lspconfig.eslint.setup({
+				on_attach = function(client, bufnr)
+					vim.api.nvim_create_autocmd("BufWritePre", {
+						buffer = bufnr,
+						command = "EslintFixAll",
+					})
+					on_attach(client, bufnr)
+				end,
+				capabilities = capabilities,
+				filetypes = {
+					"javascript",
+					"javascriptreact",
+					"javascript.jsx",
+					"typescript",
+					"typescriptreact",
+					"typescript.tsx",
+					"vue",
+					"svelte",
+					"astro",
+				},
+			})
+			lspconfig.tsserver.setup({
+				on_attach = on_attach,
+				capabilities = capabilities,
+				filetypes = {
+					"javascript",
+					"javascriptreact",
+					"javascript.jsx",
+					"typescript",
+					"typescriptreact",
+					"typescript.tsx",
+					"vue",
+					"svelte",
+					"astro",
+				},
 			})
 		end,
 	},
