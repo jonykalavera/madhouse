@@ -10,6 +10,7 @@ windows:
   - panes:
       - docker compose up db
       - docker compose up redis
+      - docker compose up masstransit
       - make start-dev-webpack
       - focus: "true"
         shell_command: make poetry.start-dev-webserver

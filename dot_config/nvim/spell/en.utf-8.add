@@ -72,3 +72,10 @@ sql
 configs
 pylint
 schemas
+dokploy
+zoxide
+eza
+fzf
+GPG
+env
+OPENAI

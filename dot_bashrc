@@ -196,28 +196,17 @@ _fzf_compgen_path() {
 _fzf_compgen_dir() {
   fd --type=d --hidden --exclude .git . "$1"
 }
+gco() {
+  _fzf_git_each_ref --no-multi | xargs git checkout
+}
+
+gswt() {
+  cd "$(_fzf_git_worktrees --no-multi)"
+}
 
 ###############################################################################
 # Custom prompt
 ###############################################################################
-
-# source /usr/share/git/completion/git-prompt.sh
-# source ~/.emoji-prompt.sh
-# __UPDATE_PROMPT() {
-# 	STATUS_CODE_ICON=$([[ $? = 0 ]] && echo '💀' || echo '🩸');
-# 	PYTHON_BADGE=$([[ "$VIRTUAL_ENV_PROMPT" == "" ]] && echo '' || echo -e "\e[00;34m\e[44;30m $VIRTUAL_ENV_PROMPT\e[00;34m\e[00m ");
-# 	if [[ $(git status 2> /dev/null | head -n4 | tail -n1) == "Changes to be committed:" ]]; then
-# 		GIT_BADGE=$(__git_ps1 "\e[00;33m \e[43;30m %s\e[00;33m \e[00;33m\e[00m");
-# 	else
-# 		if [[ $(git status 2> /dev/null | tail -n1) == "nothing to commit, working tree clean" ]] then 
-# 			GIT_BADGE=$(__git_ps1 "\e[00;32m \e[42;30m %s\e[00;32m \e[00;32m\e[00m");
-# 		else 
-# 		    GIT_BADGE=$(__git_ps1 "\e[00;31m \e[41;30m %s\e[00;31m \e[00;31m\e[00m");
-# 		fi;
-# 	fi;
-# 	PS1='$PYTHON_BADGE$(CURRENT_EMOJI_RAW) \[\e[01;30m\]\t $STATUS_CODE_ICON \[\e[00;37m\]\u\[\e[01;37m\]:$GIT_BADGE\[\e[01;34m\]\w\[\e[00m\]\n\n\$ '
-# }
-# export PROMPT_COMMAND="__UPDATE_PROMPT"
 
 eval "$(starship init bash)"
 

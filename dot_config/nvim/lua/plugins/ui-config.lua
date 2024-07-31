@@ -1,11 +1,14 @@
 return {
 	{
-		"akinsho/bufferline.nvim",
-		version = "*",
-		dependencies = "nvim-tree/nvim-web-devicons",
-		config = function()
-			require("bufferline").setup({})
-		end,
+		"DreamMaoMao/yazi.nvim",
+		dependencies = {
+			"nvim-telescope/telescope.nvim",
+			"nvim-lua/plenary.nvim",
+		},
+
+		keys = {
+			{ "gy", "<cmd>Yazi<CR>", desc = "Toggle Yazi" },
+		},
 	},
 	{
 		"folke/noice.nvim",
@@ -138,8 +141,6 @@ return {
 			vim.keymap.set("n", "<Leader>mr", MiniMap.refresh, { desc = "Refresh MiniMap" })
 			vim.keymap.set("n", "<Leader>ms", MiniMap.toggle_side, { desc = "Toggle side MiniMap" })
 			vim.keymap.set("n", "<Leader>mt", MiniMap.toggle, { desc = "Toggle MiniMap" })
-			MiniMap.open()
-			-- require("mini.diff").setup()
 			require("mini.surround").setup({
 				mappings = {
 					add = "<Leader>sa", -- Add surrounding in Normal and Visual modes
@@ -191,6 +192,14 @@ return {
 					hex_color = hipatterns.gen_highlighter.hex_color(),
 				},
 			})
+		end,
+	},
+	{
+		"leath-dub/snipe.nvim",
+		config = function()
+			local snipe = require("snipe")
+			snipe.setup()
+			vim.keymap.set("n", "gb", snipe.create_buffer_menu_toggler())
 		end,
 	},
 }

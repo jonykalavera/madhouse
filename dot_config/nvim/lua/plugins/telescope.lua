@@ -10,11 +10,8 @@ return {
 		config = function()
 			local telescope = require("telescope")
 			local builtin = require("telescope.builtin")
-			vim.keymap.set("n", "<C-S-p>", function(opts)
-				builtin.git_files(opts, { sorter = require("mini.visits").gen_sort.default(), hidden = true })
-			end, { desc = "Lists GIT files in your current working directory" })
-			vim.keymap.set("n", "<C-p>", function(opts)
-				builtin.find_files(opts, { sorter = require("mini.visits").gen_sort.default(), hidden = true })
+			vim.keymap.set("n", "<C-p>", function()
+				builtin.find_files({ hidden = true, no_ignore = true, no_ignore_parent = true })
 			end, { desc = "Lists files in your current working directory" })
 			vim.keymap.set("n", "<Leader>fs", builtin.lsp_document_symbols, { desc = "Find syntax symbols in buffer." })
 			vim.keymap.set(
@@ -43,12 +40,9 @@ return {
 				builtin.command_history,
 				{ desc = "Lists commands that were executed recently." }
 			)
-			vim.keymap.set(
-				"n",
-				"<leader>fg",
-				":lua require('telescope').extensions.live_grep_args.live_grep_args()<CR>",
-				{ desc = "Search for a string in your current working directory" }
-			)
+			vim.keymap.set("n", "<leader>fg", function()
+				require("telescope").extensions.live_grep_args.live_grep_args()
+			end, { desc = "Search for a string in your current working directory" })
 			vim.keymap.set("n", "<leader>fb", builtin.buffers, { desc = "Lists open buffers." })
 			vim.keymap.set("n", "<leader>fh", builtin.help_tags, { desc = "Lists available help tags." })
 			vim.keymap.set(
