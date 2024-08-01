@@ -277,7 +277,7 @@ complete -W "\`grep -oE '^[a-zA-Z0-9_.-]+:([^=]|$)' ?akefile | sed 's/[^a-zA-Z0-
 alias git-prune-branches='git branch --merged origin/master | xargs git branch -d'
 alias vim=nvim
 alias with-gpt="OPENAI_API_KEY=\"\$(op read op://Personal/ChatGPT/password --no-newline)\" "
-
+alias txc='sesh connect $(sesh list | fzf)'
 ###############################################################################
 # Yazi
 ###############################################################################

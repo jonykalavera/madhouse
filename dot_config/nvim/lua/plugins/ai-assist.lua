@@ -17,7 +17,7 @@ return {
 			local chatgpt = require("chatgpt")
 			local wk = require("which-key")
 			chatgpt.setup({
-				api_key_cmd = vim.g.use_chatgpt and "op read op://Personal/ChatGPT/password --no-newline" or "echo ''",
+				api_key_cmd = "secret-tool lookup chatgpt apikey",
 				actions_paths = { "~/.config/nvim/chatgpt-actions.json" },
 				openai_params = {
 					-- NOTE: model can be a function returning the model name
