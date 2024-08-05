@@ -1,14 +1,10 @@
 return {
 	{
-		"DreamMaoMao/yazi.nvim",
-		dependencies = {
-			"nvim-telescope/telescope.nvim",
-			"nvim-lua/plenary.nvim",
-		},
-
-		keys = {
-			{ "<Leader>yy", "<cmd>Yazi<CR>", desc = "Toggle Yazi" },
-		},
+		"stevearc/oil.nvim",
+		opts = {},
+		-- Optional dependencies
+		dependencies = { { "echasnovski/mini.icons", opts = {} } },
+		-- dependencies = { "nvim-tree/nvim-web-devicons" }, -- use if prefer nvim-web-devicons
 	},
 	{
 		"folke/noice.nvim",

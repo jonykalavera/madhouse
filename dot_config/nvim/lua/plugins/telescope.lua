@@ -11,7 +11,7 @@ return {
 			local telescope = require("telescope")
 			local builtin = require("telescope.builtin")
 			vim.keymap.set("n", "<Leader>fa", function()
-				builtin.find_files({ hidden = true, no_ignore = true, no_ignore_parent = true })
+				builtin.find_files({ hidden = true })
 			end, { desc = "Lists ALL files in your current working directory" })
 			vim.keymap.set("n", "<C-p>", builtin.find_files, { desc = "Lists files in your current working directory" })
 			vim.keymap.set("n", "<Leader>fs", builtin.lsp_document_symbols, { desc = "Find syntax symbols in buffer." })

@@ -24,7 +24,7 @@ vim.opt.colorcolumn = "120" -- set vertical line marker
 vim.opt.showmode = false -- we are experienced, we don't need the "-- INSERT --" mode hint
 vim.opt.signcolumn = "yes" -- always show signcolumns
 vim.opt.list = true
-vim.opt.listchars = "tab:» ,lead:•,trail:•"
+vim.opt.listchars = "tab:» ,lead: ,trail:•"
 
 -- Searching
 vim.opt.incsearch = true -- search as characters are entered

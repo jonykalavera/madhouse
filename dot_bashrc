@@ -289,3 +289,5 @@ function yy() {
 	fi
 	rm -f -- "$tmp"
 }
+
+EDITOR=vim
