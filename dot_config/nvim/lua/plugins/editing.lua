@@ -28,4 +28,5 @@ return {
 			require("leap").create_default_mappings()
 		end,
 	},
+	{ "tpope/vim-abolish" },
 }

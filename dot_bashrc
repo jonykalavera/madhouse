@@ -291,3 +291,4 @@ function yy() {
 }
 
 EDITOR=vim
+PATH="$HOME/go/bin:$PATH"
