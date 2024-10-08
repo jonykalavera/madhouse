@@ -292,3 +292,4 @@ function yy() {
 
 EDITOR=vim
 PATH="$HOME/go/bin:$PATH"
+export LD_LIBRARY_PATH=/home/jony/.local/lib/arch-mojo:$LD_LIBRARY_PATH

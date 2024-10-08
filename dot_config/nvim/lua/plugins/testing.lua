@@ -17,6 +17,7 @@ return {
 			adapters = {
 				require("neotest-python")({
 					dap = { justMyCode = false },
+					pytest_discover_instances = true,
 				}),
 				require("neotest-plenary"),
 				require("neotest-vim-test")({
@@ -51,5 +52,14 @@ return {
 		vim.keymap.set("n", "<leader>ta", function()
 			neotest.run.attach()
 		end, { desc = "Attach to nearest test" })
+		vim.keymap.set("n", "<leader>tT", function()
+			neotest.summary.toggle()
+		end, { desc = "Toggle summary" })
+		vim.keymap.set("n", "<leader>to", function()
+			neotest.output.open({ enter = true })
+		end, { desc = "Open output window" })
+		vim.keymap.set("n", "<leader>tO", function()
+			neotest.output_panel.toggle()
+		end, { desc = "Toggle output panel" })
 	end,
 }

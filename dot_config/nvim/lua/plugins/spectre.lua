@@ -19,6 +19,7 @@ return {
 						"--with-filename",
 						"--line-number",
 						"--column",
+						"--pcre2",
 					},
 					options = {
 						["ignore-case"] = {
