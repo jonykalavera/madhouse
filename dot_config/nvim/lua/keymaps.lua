@@ -52,6 +52,7 @@ vim.keymap.set("n", "<C-a>", "ggVG<C-O>", opts("Select all text"))
 -- Hint: start visual mode with the same area as the previous area and the same mode
 vim.keymap.set("v", "<", "<gv", opts("Unindent selection"))
 vim.keymap.set("v", ">", ">gv", opts("Indent selection"))
+vim.keymap.set("v", "<C-D>", "y'>o<Esc>p", opts("Duplicate selection"))
 
 -------------------
 -- Terminal mode --:

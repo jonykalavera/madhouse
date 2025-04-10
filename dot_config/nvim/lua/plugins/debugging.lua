@@ -9,6 +9,16 @@ return {
 		config = function()
 			local dap = require("dap")
 			local dapui = require("dapui")
+			dap.set_exception_breakpoints({ "raised", "uncaught" })
+			dap.configurations.python = {
+				{
+					type = "python",
+					request = "launch",
+					name = "My custom launch configuration",
+					justMyCode = false,
+					program = "${file}",
+				},
+			}
 			dap.adapters.godot = {
 				type = "server",
 				host = "127.0.0.1",

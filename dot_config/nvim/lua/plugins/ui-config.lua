@@ -63,6 +63,16 @@ return {
 		"rcarriga/nvim-notify",
 		config = function()
 			vim.notify = require("notify")
+			vim.notify.setup({
+				render = "compact",
+				timeout = 3000,
+				top_down = false,
+				sections = {
+					lualine_a = {
+						{ "pipeline" },
+					},
+				},
+			})
 		end,
 	},
 	{
@@ -195,11 +205,25 @@ return {
 		end,
 	},
 	{
-		"leath-dub/snipe.nvim",
-		config = function()
-			local snipe = require("snipe")
-			snipe.setup()
-			vim.keymap.set("n", "gb", snipe.create_buffer_menu_toggler())
-		end,
+		"akinsho/bufferline.nvim",
+		version = "*",
+		dependencies = "nvim-tree/nvim-web-devicons",
+		opts = {
+			options = {
+				diagnostics = "nvim_lsp",
+				always_show_bufferline = false,
+				offsets = {
+					{
+						filetype = "neo-tree",
+						text = "Neo-tree",
+						highlight = "Directory",
+						text_align = "left",
+					},
+					{
+						filetype = "snacks_layout_box",
+					},
+				},
+			},
+		},
 	},
 }
