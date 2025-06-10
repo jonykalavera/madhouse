@@ -10,6 +10,23 @@ return {
 			local dap = require("dap")
 			local dapui = require("dapui")
 			dap.set_exception_breakpoints({ "raised", "uncaught" })
+
+			vim.cmd("hi DapBreakpointColor guifg=#fa4848")
+			vim.fn.sign_define(
+				"DapBreakpoint",
+				{ text = "🔴", texthl = "DapBreakpointColor", linehl = "", numhl = "" }
+			)
+			vim.fn.sign_define(
+				"DapBreakpointRejected",
+				{ text = "⭕", texthl = "DapBreakpointColor", linehl = "", numhl = "" }
+			)
+			vim.fn.sign_define(
+				"DapBreakpointCondition",
+				{ text = "🛑", texthl = "DapBreakpointColor", linehl = "", numhl = "" }
+			)
+			vim.fn.sign_define("DapLogPoint", { text = "🪧", texthl = "", linehl = "", numhl = "" })
+			vim.fn.sign_define("DapStopped", { text = "👉", texthl = "", linehl = "", numhl = "" })
+
 			dap.configurations.python = {
 				{
 					type = "python",
@@ -34,7 +51,7 @@ return {
 				},
 			}
 			dap.listeners.before.attach.dapui_config = function()
-				vim.cmd(":Neotree close<CR>")
+				vim.cmd(":Pipeline close<CR>")
 				dapui.open()
 			end
 			dap.listeners.before.launch.dapui_config = function()
@@ -64,6 +81,21 @@ return {
 			vim.keymap.set("v", "<leader>ds", dap_python.test_class, opts("Test current class"))
 
 			dapui.setup()
+		end,
+	},
+	{
+		"lucaSartore/nvim-dap-exception-breakpoints",
+		dependencies = { "mfussenegger/nvim-dap" },
+
+		config = function()
+			local set_exception_breakpoints = require("nvim-dap-exception-breakpoints")
+
+			vim.api.nvim_set_keymap(
+				"n",
+				"<leader>dc",
+				"",
+				{ desc = "[D]ebug [C]ondition breakpoints", callback = set_exception_breakpoints }
+			)
 		end,
 	},
 }

@@ -37,7 +37,7 @@ return {
 			vim.keymap.set("n", "<leader>fc", builtin.commands, { desc = "Lists available plugin/user commands." })
 			vim.keymap.set(
 				"n",
-				"<leader>fC",
+				"<C-S-p",
 				builtin.command_history,
 				{ desc = "Lists commands that were executed recently." }
 			)

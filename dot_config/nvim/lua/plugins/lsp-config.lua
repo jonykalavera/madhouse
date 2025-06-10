@@ -13,7 +13,6 @@ return {
 				ensure_installed = {
 					"lua_ls",
 					"pylsp",
-					"rust_analyzer",
 					"ruff",
 					"marksman",
 					"harper_ls",
@@ -25,7 +24,29 @@ return {
 	},
 	{
 		"neovim/nvim-lspconfig",
-		dependencies = { "hrsh7th/cmp-nvim-lsp" },
+		dependencies = {
+			{
+				"folke/lazydev.nvim",
+				ft = "lua", -- only load on lua files
+				opts = {
+					library = {
+						-- See the configuration section for more details
+						-- Load luvit types when the `vim.uv` word is found
+						{ path = "${3rd}/luv/library", words = { "vim%.uv" } },
+					},
+				},
+			},
+			{ -- optional cmp completion source for require statements and module annotations
+				"hrsh7th/nvim-cmp",
+				opts = function(_, opts)
+					opts.sources = opts.sources or {}
+					table.insert(opts.sources, {
+						name = "lazydev",
+						group_index = 0, -- set group index to 0 to skip loading LuaLS completions
+					})
+				end,
+			},
+		},
 		config = function()
 			local capabilities = require("cmp_nvim_lsp").default_capabilities()
 			-- Set different settings for different languages' LSP
@@ -41,8 +62,12 @@ return {
 				return { desc = desc, noremap = true, silent = true }
 			end
 			vim.keymap.set("n", "<Leader>de", vim.diagnostic.open_float, opts("Open diagnostics popup"))
-			vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, opts("Go to previous diagnostic"))
-			vim.keymap.set("n", "]d", vim.diagnostic.goto_next, opts("Go to next diagnostic"))
+			vim.keymap.set("n", "[d", function()
+				vim.diagnostic.jump({ count = -1, float = true })
+			end, opts("Go to previous diagnostic"))
+			vim.keymap.set("n", "]d", function()
+				vim.diagnostic.jump({ count = 1, float = true })
+			end, opts("Go to next diagnostic"))
 			vim.keymap.set(
 				"n",
 				"<leader>dq",
@@ -106,6 +131,8 @@ return {
 								ignore = {},
 								maxLineLength = 120,
 							},
+							mypy = { enabled = true },
+							pyls_mypy = { enabled = true },
 						},
 					},
 				},
