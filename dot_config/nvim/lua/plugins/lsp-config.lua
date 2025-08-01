@@ -47,6 +47,11 @@ return {
 				end,
 			},
 		},
+		opts = {
+			servers = {
+				ansiblels = {},
+			},
+		},
 		config = function()
 			local capabilities = require("cmp_nvim_lsp").default_capabilities()
 			-- Set different settings for different languages' LSP
@@ -133,6 +138,7 @@ return {
 							},
 							mypy = { enabled = true },
 							pyls_mypy = { enabled = true },
+							pyright = { enabled = false },
 						},
 					},
 				},

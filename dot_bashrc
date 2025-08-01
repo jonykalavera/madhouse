@@ -141,6 +141,7 @@ ex ()
 # USER CONFIG
 ###############################################################################
 
+PATH="$HOME/code/bin:$PATH"
 SSH_ENV="$HOME/.ssh/agent-environment"
 
 function start_agent {
@@ -267,7 +268,10 @@ complete -W "\`grep -oE '^[a-zA-Z0-9_.-]+:([^=]|$)' ?akefile | sed 's/[^a-zA-Z0-
 ###############################################################################
 # Custom Alias
 ###############################################################################
-alias git-prune-branches='git branch --merged origin/master | xargs git branch -d'
+git_main_branch () {
+    git branch --format "%(refname:lstrip=-1)" | grep -E '^master$|^main$'
+}
+alias git-prune-branches='git branch --format "%(refname:lstrip=-1)" --merged "origin/$(git_main_branch)" | grep -v "$(git_main_branch)" | xargs git branch -d'
 alias with-gpt="OPENAI_API_KEY=\"\$(op read op://Personal/ChatGPT/password --no-newline)\" "
 alias txc='sesh connect $(sesh list | fzf)'
 ###############################################################################

@@ -95,3 +95,8 @@ Lytics
 redis
 Gunicorn
 timedelta
+ansible
+restic
+src
+dest
+django
