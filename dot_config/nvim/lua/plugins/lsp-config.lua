@@ -1,27 +1,12 @@
 return {
 	-- LSP manager
-	{
-		"williamboman/mason.nvim",
-		config = function()
-			require("mason").setup({})
-		end,
-	},
-	{
-		"williamboman/mason-lspconfig.nvim",
-		config = function()
-			require("mason-lspconfig").setup({
-				ensure_installed = {
-					"lua_ls",
-					"pylsp",
-					"ruff",
-					"marksman",
-					"harper_ls",
-					"csharp_ls",
-					"eslint",
-				},
-			})
-		end,
-	},
+	-- {
+	-- 	"williamboman/mason.nvim",
+	-- 	config = function()
+	-- 		require("mason").setup({})
+	-- 	end,
+	-- },
+
 	{
 		"neovim/nvim-lspconfig",
 		dependencies = {
@@ -205,6 +190,22 @@ return {
 				},
 			})
 		end,
+	},
+	{
+		"williamboman/mason-lspconfig.nvim",
+		opts = {
+			ensure_installed = {
+				"lua_ls",
+				"marksman",
+				"harper_ls",
+				"csharp_ls",
+				"eslint",
+			},
+		},
+		dependencies = {
+			{ "mason-org/mason.nvim", opts = {} },
+			"neovim/nvim-lspconfig",
+		},
 	},
 	{
 		"onsails/lspkind.nvim",
