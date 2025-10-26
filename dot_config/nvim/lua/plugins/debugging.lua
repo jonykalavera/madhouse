@@ -63,23 +63,35 @@ return {
 			dap.listeners.before.event_exited.dapui_config = function()
 				dapui.close()
 			end
+			-- dap.listeners.after.event_initialized["set_exception_breakpoints"] = function()
+			-- 	dap.set_exception_breakpoints({"Error", "Exception"})
+			-- end
 			local opts = function(desc)
 				return { noremap = true, silent = true, desc = desc }
 			end
+			-- nnoremap <silent> <Leader>db <Cmd>lua require'dap'.toggle_breakpoint()<CR>
 			vim.keymap.set("n", "<Leader>db", dap.toggle_breakpoint, opts("Toggle breakpoint"))
+			-- nnoremap <silent> <F5> <Cmd>lua require'dap'.continue()<CR>
 			vim.keymap.set("n", "<F5>", dap.continue, opts("Debug / continue"))
+			-- nnoremap <silent> <F10> <Cmd>lua require'dap'.step_over()<CR>
+			vim.keymap.set("n", "<F10>", dap.step_over, opts("Step over"))
+			-- nnoremap <silent> <F11> <Cmd>lua require'dap'.step_into()<CR>
+			vim.keymap.set("n", "<F11>", dap.step_over, opts("Step into"))
+			-- nnoremap <silent> <F12> <Cmd>lua require'dap'.step_out()<CR>
+			vim.keymap.set("n", "<F12>", dap.step_over, opts("Step out"))
+			-- nnoremap <silent> <Leader>B <Cmd>lua require'dap'.set_breakpoint(vim.fn.input('Breakpoint condition: '))<CR>
+			-- nnoremap <silent> <Leader>lp <Cmd>lua require'dap'.set_breakpoint(nil, nil, vim.fn.input('Log point message: '))<CR>
+			-- nnoremap <silent> <Leader>dr <Cmd>lua require'dap'.repl.open()<CR>
+			-- nnoremap <silent> <Leader>dl <Cmd>lua require'dap'.run_last()<CR>
 
 			-- python
 			local dap_python = require("dap-python")
-			dap_python.setup("~/.config/nvim/venv/bin/python")
+			dap_python.setup("uv")
 			dap_python.test_runner = "pytest"
-			-- nnoremap <silent> <leader>dn :lua require('dap-python').test_method()<CR>
 			vim.keymap.set("n", "<leader>dn", dap_python.test_method, opts("Test current method"))
-			-- nnoremap <silent> <leader>df :lua require('dap-python').test_class()<CR>
 			vim.keymap.set("n", "<leader>df", dap_python.test_class, opts("Test current class"))
-			-- vnoremap <silent> <leader>ds <ESC>:lua require('dap-python').debug_selection()<CR>
 			vim.keymap.set("v", "<leader>ds", dap_python.test_class, opts("Test current class"))
-
+			require("easy-dotnet.netcoredbg").register_dap_variables_viewer()
 			dapui.setup()
 		end,
 	},

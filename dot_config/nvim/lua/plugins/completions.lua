@@ -51,6 +51,7 @@ return {
 			local cmp = require("cmp")
 			require("luasnip.loaders.from_vscode").lazy_load()
 			local lspkind = require("lspkind")
+			cmp.register_source("easy-dotnet", require("easy-dotnet").package_completion_source)
 
 			cmp.setup({
 				snippet = {
@@ -142,6 +143,7 @@ return {
 				-- Set source precedence
 				sources = cmp.config.sources({
 					{ name = "nvim_lsp" }, -- For nvim-lsp
+					{ name = "easy-dotnet" },
 					{ name = "luasnip" }, -- For luasnip user
 					{ name = "buffer" }, -- For buffer word completion
 					{ name = "path" }, -- For path completion
