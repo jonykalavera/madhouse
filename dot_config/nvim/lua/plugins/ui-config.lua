@@ -238,12 +238,82 @@ return {
 			local toggleterm = require("toggleterm")
 			toggleterm.setup()
 			local Terminal = require("toggleterm.terminal").Terminal
-			local lazygit = Terminal:new({ cmd = "lazygit", hidden = true, direction = "float" })
-			local lazydocker = Terminal:new({ cmd = "lazydocker", hidden = true, direction = "float" })
+			-- function to run on opening the terminal
+			local on_open = function(term)
+				vim.cmd("startinsert!")
+				vim.api.nvim_buf_set_keymap(
+					term.bufnr,
+					"n",
+					"q",
+					"<cmd>close<CR>",
+					{ noremap = true, silent = true, desc = "Close" }
+				)
+			end
+			-- function to run on closing the terminal
+			---@diagnostic disable-next-line: unused-local
+			local on_close = function(term)
+				vim.cmd("startinsert!")
+			end
+			local terminal = Terminal:new({
+				cmd = "bash",
+				hidden = false,
+				display_name = "Bash",
+				on_close,
+				on_open,
+			})
+			local lazygit = Terminal:new({
+				cmd = "lazygit",
+				hidden = false,
+				direction = "float",
+				display_name = "LazyGit",
+				on_close,
+				on_open,
+			})
+			local lazydocker = Terminal:new({
+				cmd = "lazydocker",
+				hidden = true,
+				direction = "float",
+				display_name = "LazyDocker",
+				on_close,
+				on_open,
+			})
+			local lazysql = Terminal:new({
+				cmd = "lazysql",
+				hidden = false,
+				direction = "float",
+				display_name = "LazySQL",
+				on_close,
+				on_open,
+			})
+			local lazyredis = Terminal:new({
+				cmd = "lazyredis",
+				hidden = false,
+				direction = "float",
+				display_name = "LazyRedis",
+				on_close,
+				on_open,
+			})
+			local opencode = Terminal:new({
+				cmd = "opencode",
+				hidden = false,
+				direction = "float",
+				display_name = "OpenCode",
+				on_close,
+				on_open,
+			})
 
 			vim.keymap.set("n", "tt", function()
-				vim.cmd("ToggleTerm<Enter>")
+				-- vim.cmd("ToggleTerm size=30<CR>")
+				terminal:toggle()
 			end, { noremap = true, silent = true, desc = "ToggleTerm" })
+			vim.keymap.set("n", "th", function()
+				-- vim.cmd("ToggleTerm size=30<CR>")
+				terminal:toggle(30, "horizontal")
+			end, { noremap = true, silent = true, desc = "ToggleTerm vertical" })
+			vim.keymap.set("n", "tv", function()
+				-- vim.cmd("ToggleTerm size=30<CR>")
+				terminal:toggle(120, "vertical")
+			end, { noremap = true, silent = true, desc = "ToggleTerm vertical" })
 
 			vim.keymap.set("n", "<leader>lg", function()
 				lazygit:toggle()
@@ -251,6 +321,28 @@ return {
 			vim.keymap.set("n", "<leader>ld", function()
 				lazydocker:toggle()
 			end, { noremap = true, silent = true, desc = "LazyDocker" })
+			vim.keymap.set("n", "<leader>ls", function()
+				lazysql:toggle()
+			end, { noremap = true, silent = true, desc = "LazySQL" })
+			vim.keymap.set("n", "<leader>lr", function()
+				lazyredis:toggle()
+			end, { noremap = true, silent = true, desc = "LazyRedis" })
+			vim.keymap.set("n", "<leader>oc", function()
+				opencode:toggle()
+			end, { noremap = true, silent = true, desc = "OpenCode" })
+			function _G.set_terminal_keymaps()
+				local opts = { buffer = 0 }
+				vim.keymap.set("t", "<C-esc>", [[<C-\><C-n>]], opts)
+				vim.keymap.set("t", "jk", [[<C-\><C-n>]], opts)
+				vim.keymap.set("t", "<C-h>", [[<Cmd>wincmd h<CR>]], opts)
+				vim.keymap.set("t", "<C-j>", [[<Cmd>wincmd j<CR>]], opts)
+				vim.keymap.set("t", "<C-k>", [[<Cmd>wincmd k<CR>]], opts)
+				vim.keymap.set("t", "<C-l>", [[<Cmd>wincmd l<CR>]], opts)
+				vim.keymap.set("t", "<C-w>", [[<C-\><C-n><C-w>]], opts)
+			end
+
+			-- if you only want these mappings for toggle term use term://*toggleterm#* instead
+			vim.cmd("autocmd! TermOpen term://* lua set_terminal_keymaps()")
 		end,
 	},
 }
