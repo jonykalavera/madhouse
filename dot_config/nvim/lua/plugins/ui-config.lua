@@ -71,6 +71,7 @@ return {
 				render = "compact",
 				timeout = 3000,
 				top_down = false,
+				merge_duplicates = true,
 				sections = {
 					lualine_a = {
 						{ "pipeline" },
@@ -229,5 +230,27 @@ return {
 				},
 			},
 		},
+	},
+	{
+		"akinsho/toggleterm.nvim",
+		version = "*",
+		config = function()
+			local toggleterm = require("toggleterm")
+			toggleterm.setup()
+			local Terminal = require("toggleterm.terminal").Terminal
+			local lazygit = Terminal:new({ cmd = "lazygit", hidden = true, direction = "float" })
+			local lazydocker = Terminal:new({ cmd = "lazydocker", hidden = true, direction = "float" })
+
+			vim.keymap.set("n", "tt", function()
+				vim.cmd("ToggleTerm<Enter>")
+			end, { noremap = true, silent = true, desc = "ToggleTerm" })
+
+			vim.keymap.set("n", "<leader>lg", function()
+				lazygit:toggle()
+			end, { noremap = true, silent = true, desc = "LazyGit" })
+			vim.keymap.set("n", "<leader>ld", function()
+				lazydocker:toggle()
+			end, { noremap = true, silent = true, desc = "LazyDocker" })
+		end,
 	},
 }
