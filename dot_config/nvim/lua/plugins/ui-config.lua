@@ -277,6 +277,15 @@ return {
 				on_close,
 				on_open,
 			})
+			local k9s = Terminal:new({
+				cmd = "k9s",
+				hidden = true,
+				direction = "float",
+				display_name = "K9s",
+				on_close,
+				on_open,
+			})
+
 			local lazysql = Terminal:new({
 				cmd = "lazysql",
 				hidden = false,
@@ -321,6 +330,9 @@ return {
 			vim.keymap.set("n", "<leader>ld", function()
 				lazydocker:toggle()
 			end, { noremap = true, silent = true, desc = "LazyDocker" })
+			vim.keymap.set("n", "<leader>k9", function()
+				k9s:toggle()
+			end, { noremap = true, silent = true, desc = "K9s" })
 			vim.keymap.set("n", "<leader>ls", function()
 				lazysql:toggle()
 			end, { noremap = true, silent = true, desc = "LazySQL" })

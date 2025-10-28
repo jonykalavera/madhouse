@@ -7,6 +7,7 @@ vim.g.maplocalleader = " "
 vim.opt.autoread = true
 vim.opt.updatetime = 250
 vim.opt.timeoutlen = 300
+vim.opt.exrc = true
 -- Tab
 vim.opt.tabstop = 4 -- number of visual spaces per TAB
 vim.opt.softtabstop = 4 -- number of spaces in tab when editing

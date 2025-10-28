@@ -1,5 +1,21 @@
 return {
 	{
+		"rachartier/tiny-inline-diagnostic.nvim",
+		event = "VeryLazy",
+		priority = 1000,
+		config = function()
+			require("tiny-inline-diagnostic").setup({
+				options = {
+					-- Virtual text display priority
+					-- Higher values appear above other plugins (e.g., GitBlame)
+					virt_texts = {
+						priority = 12048,
+					},
+				},
+			})
+		end,
+	},
+	{
 		"neovim/nvim-lspconfig",
 		dependencies = {
 			{
@@ -25,6 +41,9 @@ return {
 			},
 		},
 		opts = {
+			diagnostics = {
+				virtual_text = false,
+			},
 			servers = {
 				ansiblels = {},
 			},

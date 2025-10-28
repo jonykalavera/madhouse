@@ -40,6 +40,14 @@ vim.keymap.set("n", "<C-Right>", ":vertical resize +2<CR>", opts("Increase windo
 vim.keymap.set("n", "<leader>sc", ":set spell!<CR>", opts("Toggle spell check"))
 
 -- Text editing
+-- Diagnostics
+vim.keymap.set("n", "[d", function()
+	vim.diagnostic.jump({ count = -1 })
+end, opts("Go to previous diagnostic"))
+vim.keymap.set("n", "]d", function()
+	vim.diagnostic.jump({ count = 1 })
+end, opts("Go to next diagnostic"))
+
 -- vim.keymap.set("n", "ya", "ggVGy<C-O>", opts("Copy all text"))
 -- vim.keymap.set("n", "sa", "ggVG<C-O>", opts("Select all text"))
 vim.keymap.set("n", "<C-a>", "ggVG<C-O>", opts("Select all text"))

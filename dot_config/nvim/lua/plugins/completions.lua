@@ -143,11 +143,11 @@ return {
 				-- Set source precedence
 				sources = cmp.config.sources({
 					{ name = "nvim_lsp" }, -- For nvim-lsp
-					{ name = "easy-dotnet" },
+					{ name = "easy-dotnet" }, -- For Roslyn
+					{ name = "codeium" }, -- codeium
 					{ name = "luasnip" }, -- For luasnip user
 					{ name = "buffer" }, -- For buffer word completion
 					{ name = "path" }, -- For path completion
-					{ name = "codeium" }, -- codeium
 				}),
 			})
 		end,
