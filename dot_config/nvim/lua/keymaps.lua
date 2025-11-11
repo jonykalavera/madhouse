@@ -3,7 +3,7 @@ local opts = function(desc)
 	return {
 		desc = desc,
 		noremap = true, -- non-recursive
-		silent = true, -- do not show message
+		silent = false, -- do not show message
 	}
 end
 
@@ -65,5 +65,5 @@ vim.keymap.set("v", "<C-D>", "y'>o<Esc>p", opts("Duplicate selection"))
 -------------------
 -- Terminal mode --:
 -------------------
-
-vim.keymap.set("t", "<Esc>", "<C-\\><C-n>", opts("Exit terminal mode"))
+-- Double esc to exit terminal mode
+vim.keymap.set("t", "<Esc><Esc>", "<C-\\><C-n>", opts("Exit terminal mode"))

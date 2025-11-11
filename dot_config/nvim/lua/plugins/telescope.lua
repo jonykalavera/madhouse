@@ -44,7 +44,9 @@ return {
 			vim.keymap.set("n", "<leader>fg", function()
 				require("telescope").extensions.live_grep_args.live_grep_args()
 			end, { desc = "Search for a string in your current working directory" })
-			vim.keymap.set("n", "<leader>fb", builtin.buffers, { desc = "Lists open buffers." })
+			vim.keymap.set("n", "<leader>fb", function()
+				builtin.buffers({ sort_mru = true, ignore_current_buffer = true })
+			end, { desc = "Lists open buffers." })
 			vim.keymap.set("n", "<leader>fh", builtin.help_tags, { desc = "Lists available help tags." })
 			vim.keymap.set(
 				"n",

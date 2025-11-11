@@ -47,21 +47,5 @@ M.on_attach = function(client, bufnr)
 	-- vim.keymap.set("n", "<Leader>f", function()
 	-- 	vim.lsp.buf.format({ async = true })
 	-- end, bufopts("Format buffer"))
-
-	-- CS Projects
-	local FixProjectSlashes = function()
-		for _, f in ipairs(vim.fn.glob("**/*.{csproj,props,targets,slnx}", true, true)) do
-			vim.cmd("edit " .. vim.fn.fnameescape(f))
-			vim.cmd([[%s#\\#/#ge]])
-			vim.cmd("update")
-		end
-	end
-	vim.api.nvim_create_user_command("FixProjectSlashes", FixProjectSlashes, {})
-	vim.keymap.set(
-		"n",
-		"<leader>ps",
-		":FixProjectSlashes<CR>",
-		{ silent = true, noremap = true, desc = "Fix project slashes" }
-	)
 end
 return M

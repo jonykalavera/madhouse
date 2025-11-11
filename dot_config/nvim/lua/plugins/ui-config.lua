@@ -103,6 +103,9 @@ return {
 		version = "*",
 		dependencies = { "lewis6991/gitsigns.nvim" },
 		config = function()
+			-- *************************************************************************
+			-- MiniMap
+			-- *************************************************************************
 			local minmap = require("mini.map")
 			local encode = minmap.gen_encode_symbols.dot("3x2")
 			local search_integration = minmap.gen_integration.builtin_search()
@@ -156,6 +159,9 @@ return {
 			vim.keymap.set("n", "<Leader>mr", MiniMap.refresh, { desc = "Refresh MiniMap" })
 			vim.keymap.set("n", "<Leader>ms", MiniMap.toggle_side, { desc = "Toggle side MiniMap" })
 			vim.keymap.set("n", "<Leader>mt", MiniMap.toggle, { desc = "Toggle MiniMap" })
+			-- *************************************************************************
+			-- MiniSurround
+			-- *************************************************************************
 			require("mini.surround").setup({
 				mappings = {
 					add = "<Leader>sa", -- Add surrounding in Normal and Visual modes
@@ -170,8 +176,21 @@ return {
 					suffix_next = "n", -- Suffix to search with "next" method
 				},
 			})
+			vim.keymap.set("x", '"', [[:<C-u>lua MiniSurround.add('visual')<CR>"]], { silent = true })
+			vim.keymap.set("x", "'", [[:<C-u>lua MiniSurround.add('visual')<CR>']], { silent = true })
+			vim.keymap.set("x", "`", [[:<C-u>lua MiniSurround.add('visual')<CR>`]], { silent = true })
+			vim.keymap.set("x", "[", [[:<C-u>lua MiniSurround.add('visual')<CR>[]], { silent = true })
+			vim.keymap.set("x", "{", [[:<C-u>lua MiniSurround.add('visual')<CR>{]], { silent = true })
+			vim.keymap.set("x", "(", [[:<C-u>lua MiniSurround.add('visual')<CR>(]], { silent = true })
+
+			-- *************************************************************************
+			-- MiniPairs
+			-- *************************************************************************
 			require("mini.pairs").setup()
-			-- require("mini.animate").setup()
+
+			-- *************************************************************************
+			-- MiniVisits
+			-- *************************************************************************
 			require("mini.visits").setup()
 			local make_select_path = function(select_global, recency_weight)
 				local visits = require("mini.visits")
@@ -187,6 +206,9 @@ return {
 				vim.keymap.set("n", lhs, make_select_path(...), { desc = desc })
 			end
 
+			-- *************************************************************************
+			-- MiniHipatterns
+			-- *************************************************************************
 			-- Adjust LHS and description to your liking
 			map("<Leader>vr", "Select recent (all)", true, 1)
 			map("<Leader>vR", "Select recent (cwd)", false, 1)
@@ -203,7 +225,7 @@ return {
 					todo = { pattern = "%f[%w]()TODO()%f[%W]", group = "MiniHipatternsTodo" },
 					note = { pattern = "%f[%w]()NOTE()%f[%W]", group = "MiniHipatternsNote" },
 
-					-- Highlight hex color strings (`#rrggbb`) using that color
+					-- 'Highlight' hex color strings (`#rrggbb`) using that color
 					hex_color = hipatterns.gen_highlighter.hex_color(),
 				},
 			})
@@ -236,7 +258,7 @@ return {
 		version = "*",
 		config = function()
 			local toggleterm = require("toggleterm")
-			toggleterm.setup()
+
 			local Terminal = require("toggleterm.terminal").Terminal
 			-- function to run on opening the terminal
 			local on_open = function(term)
@@ -254,36 +276,32 @@ return {
 			local on_close = function(term)
 				vim.cmd("startinsert!")
 			end
-			local terminal = Terminal:new({
-				cmd = "bash",
-				hidden = false,
-				display_name = "Bash",
-				on_close,
-				on_open,
+			-- ToggleTerm setup
+			toggleterm.setup({
+				open_mapping = { [[<c-\]], [[<C-º>]] },
+				on_close = on_close,
+				on_open = on_open,
+				shade_terminals = false,
 			})
+
+			-- Custom terminal
 			local lazygit = Terminal:new({
 				cmd = "lazygit",
 				hidden = false,
 				direction = "float",
 				display_name = "LazyGit",
-				on_close,
-				on_open,
 			})
 			local lazydocker = Terminal:new({
 				cmd = "lazydocker",
 				hidden = true,
 				direction = "float",
 				display_name = "LazyDocker",
-				on_close,
-				on_open,
 			})
 			local k9s = Terminal:new({
 				cmd = "k9s",
 				hidden = true,
 				direction = "float",
 				display_name = "K9s",
-				on_close,
-				on_open,
 			})
 
 			local lazysql = Terminal:new({
@@ -291,38 +309,13 @@ return {
 				hidden = false,
 				direction = "float",
 				display_name = "LazySQL",
-				on_close,
-				on_open,
 			})
 			local lazyredis = Terminal:new({
 				cmd = "lazyredis",
 				hidden = false,
 				direction = "float",
 				display_name = "LazyRedis",
-				on_close,
-				on_open,
 			})
-			local opencode = Terminal:new({
-				cmd = "opencode",
-				hidden = false,
-				direction = "float",
-				display_name = "OpenCode",
-				on_close,
-				on_open,
-			})
-
-			vim.keymap.set("n", "tt", function()
-				-- vim.cmd("ToggleTerm size=30<CR>")
-				terminal:toggle()
-			end, { noremap = true, silent = true, desc = "ToggleTerm" })
-			vim.keymap.set("n", "th", function()
-				-- vim.cmd("ToggleTerm size=30<CR>")
-				terminal:toggle(30, "horizontal")
-			end, { noremap = true, silent = true, desc = "ToggleTerm vertical" })
-			vim.keymap.set("n", "tv", function()
-				-- vim.cmd("ToggleTerm size=30<CR>")
-				terminal:toggle(120, "vertical")
-			end, { noremap = true, silent = true, desc = "ToggleTerm vertical" })
 
 			vim.keymap.set("n", "<leader>lg", function()
 				lazygit:toggle()
@@ -339,12 +332,8 @@ return {
 			vim.keymap.set("n", "<leader>lr", function()
 				lazyredis:toggle()
 			end, { noremap = true, silent = true, desc = "LazyRedis" })
-			vim.keymap.set("n", "<leader>oc", function()
-				opencode:toggle()
-			end, { noremap = true, silent = true, desc = "OpenCode" })
 			function _G.set_terminal_keymaps()
 				local opts = { buffer = 0 }
-				vim.keymap.set("t", "<C-esc>", [[<C-\><C-n>]], opts)
 				vim.keymap.set("t", "jk", [[<C-\><C-n>]], opts)
 				vim.keymap.set("t", "<C-h>", [[<Cmd>wincmd h<CR>]], opts)
 				vim.keymap.set("t", "<C-j>", [[<Cmd>wincmd j<CR>]], opts)
@@ -355,6 +344,31 @@ return {
 
 			-- if you only want these mappings for toggle term use term://*toggleterm#* instead
 			vim.cmd("autocmd! TermOpen term://* lua set_terminal_keymaps()")
+		end,
+	},
+	{
+		"https://git.sr.ht/~havi/telescope-toggleterm.nvim",
+		event = "TermOpen",
+		requires = {
+			"akinsho/nvim-toggleterm.lua",
+			"nvim-telescope/telescope.nvim",
+			"nvim-lua/popup.nvim",
+			"nvim-lua/plenary.nvim",
+		},
+		config = function()
+			require("telescope").load_extension("toggleterm")
+			require("telescope-toggleterm").setup({
+				telescope_mappings = {
+					-- <ctrl-c> : kill the terminal buffer (default) .
+					["<C-c>"] = require("telescope-toggleterm").actions.exit_terminal,
+				},
+			})
+			vim.keymap.set(
+				"n",
+				"<leader>T",
+				"<cmd>Telescope toggleterm<cr>",
+				{ noremap = true, desc = "Telescope toggleterm" }
+			)
 		end,
 	},
 }

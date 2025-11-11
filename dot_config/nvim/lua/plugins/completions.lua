@@ -47,10 +47,13 @@ return {
 					and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
 			end
 
-			local luasnip = require("luasnip")
 			local cmp = require("cmp")
+
+			local luasnip = require("luasnip")
 			require("luasnip.loaders.from_vscode").lazy_load()
+
 			local lspkind = require("lspkind")
+
 			cmp.register_source("easy-dotnet", require("easy-dotnet").package_completion_source)
 
 			cmp.setup({
