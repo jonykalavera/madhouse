@@ -108,3 +108,4 @@ mariadb
 rabbitmq
 middleware
 preprocessing
+serializer

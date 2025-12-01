@@ -9,6 +9,45 @@ return {
 			"rafamadriz/friendly-snippets",
 		},
 		version = "v2.*",
+		build = "make install_jsregexp",
+		config = function()
+			local ls = require("luasnip")
+			local s = ls.snippet
+			local t = ls.text_node
+			local i = ls.insert_node
+
+			vim.keymap.set({ "i", "s" }, "<A-k>", function()
+				if ls.expand_or_jumpable() then
+					ls.expand_or_jump()
+				end
+			end, { silent = true })
+			vim.keymap.set({ "i", "s" }, "<A-j>", function()
+				if ls.jumpable(-1) then
+					ls.jump(-1)
+				end
+			end, { silent = true })
+
+			ls.add_snippets("cs", {
+				s({ trig = "///", wordTrig = false }, {
+					t({ "/// <summary>", "/// " }),
+					i(1),
+					t({ "", "/// </summary>" }),
+				}),
+			})
+			ls.add_snippets("python", {
+				s({ trig = "test", wordTrig = false }, {
+					t({ "def test_" }),
+					i(1),
+					t({ "(self):", '    """We expect ' }),
+					i(2),
+					t({ '"""', "    # setup data", "    " }),
+					i(3),
+					t({ "", "    # system under test", "    " }),
+					i(4),
+					t({ "", "    # assertions", "    " }),
+				}),
+			})
+		end,
 	},
 	{
 		"folke/lazydev.nvim",
@@ -76,7 +115,16 @@ return {
 					["<C-j>"] = cmp.mapping.select_next_item(),
 					-- Use <CR>(Enter) to confirm selection
 					-- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
-					["<CR>"] = cmp.mapping.confirm({ select = true }),
+					-- ["<CR>"] = cmp.mapping.confirm({ select = true }),
+					["<CR>"] = cmp.mapping(function(fallback)
+						if cmp.visible() then
+							local ok = cmp.confirm({ select = true })
+							if ok then
+								return
+							end
+						end
+						fallback()
+					end, { "i", "s" }),
 
 					-- A super tab
 					-- sourc: https://github.com/hrsh7th/nvim-cmp/wiki/Example-mappings#luasnip
@@ -137,6 +185,8 @@ return {
 								luasnip = "[Luasnip]",
 								buffer = "[File]",
 								path = "[Path]",
+								easy_dotnet = "[Roslyn]",
+								codeium = "[Codeium]",
 							})[entry.source.name]
 							return vim_item
 						end,
@@ -145,10 +195,10 @@ return {
 
 				-- Set source precedence
 				sources = cmp.config.sources({
+					{ name = "luasnip", options = { use_show_conditions = true } }, -- For luasnip user
 					{ name = "nvim_lsp" }, -- For nvim-lsp
 					{ name = "easy-dotnet" }, -- For Roslyn
 					{ name = "codeium" }, -- codeium
-					{ name = "luasnip" }, -- For luasnip user
 					{ name = "buffer" }, -- For buffer word completion
 					{ name = "path" }, -- For path completion
 				}),

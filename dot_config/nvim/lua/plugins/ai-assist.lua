@@ -32,7 +32,7 @@ return {
 
 			-- Recommended/example keymaps.
 			vim.keymap.set({ "n", "x" }, "<leader>oc", function()
-				require("opencode").ask("@this: ", { submit = true })
+				require("opencode").toggle()
 			end, opts("Ask opencode"))
 			vim.keymap.set({ "n", "x" }, "<leader>ox", function()
 				require("opencode").select()

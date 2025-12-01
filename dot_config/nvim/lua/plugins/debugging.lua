@@ -79,9 +79,9 @@ return {
 			-- nnoremap <silent> <F10> <Cmd>lua require'dap'.step_over()<CR>
 			vim.keymap.set("n", "<F10>", dap.step_over, opts("Step over"))
 			-- nnoremap <silent> <F11> <Cmd>lua require'dap'.step_into()<CR>
-			vim.keymap.set("n", "<F11>", dap.step_over, opts("Step into"))
+			vim.keymap.set("n", "<F11>", dap.step_into, opts("Step into"))
 			-- nnoremap <silent> <F12> <Cmd>lua require'dap'.step_out()<CR>
-			vim.keymap.set("n", "<F12>", dap.step_over, opts("Step out"))
+			vim.keymap.set("n", "<F12>", dap.step_out, opts("Step out"))
 			-- nnoremap <silent> <Leader>B <Cmd>lua require'dap'.set_breakpoint(vim.fn.input('Breakpoint condition: '))<CR>
 			vim.keymap.set("n", "<leader>dB", function()
 				dap.set_breakpoint(vim.fn.input("Breakpoint condition: "))
@@ -93,7 +93,6 @@ return {
 
 			-- nnoremap <silent> <Leader>dr <Cmd>lua require'dap'.repl.open()<CR>
 			-- nnoremap <silent> <Leader>dl <Cmd>lua require'dap'.run_last()<CR>
-			vim.keymap.set("n", "<leader>du", dapui.toggle, opts("Toggle debug UI"))
 
 			-- Python Projects
 			vim.api.nvim_create_autocmd("BufEnter", {
@@ -124,6 +123,7 @@ return {
 			})
 			require("easy-dotnet.netcoredbg").register_dap_variables_viewer()
 			dapui.setup()
+			vim.keymap.set("n", "<leader>du", dapui.toggle, opts("Toggle debug UI"))
 		end,
 	},
 	{

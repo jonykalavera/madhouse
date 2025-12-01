@@ -23,6 +23,8 @@ end, opts("Clear search")) --
 -- vim.keymap.set("n", "<C-j>", "<C-w>j", opts("Go to lower window"))
 -- vim.keymap.set("n", "<C-k>", "<C-w>k", opts("Go to upper window"))
 -- vim.keymap.set("n", "<C-l>", "<C-w>l", opts("Go to right window"))
+vim.keymap.set("n", "<Tab>", "<cmd>bnext<cr>", opts("Go to next buffer"))
+vim.keymap.set("n", "<S-Tab>", "<cmd>bprevious<cr>", opts("Go to previous buffer"))
 vim.keymap.set("n", "<leader>wo", "<cmd>w | %bd | e#<cr>", opts("Close all other buffers"))
 vim.keymap.set("n", "<leader>ww", function()
 	vim.cmd("1,$bd!")

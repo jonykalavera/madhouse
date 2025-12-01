@@ -60,6 +60,7 @@ return {
 				builtin.builtin,
 				{ desc = "Lists Built-in pickers and run them.", noremap = true }
 			)
+			vim.keymap.set("n", "<leader>fl", builtin.resume, { desc = "Resume the last picker.", noremap = true })
 			-- GIT pickers
 			vim.keymap.set(
 				"n",

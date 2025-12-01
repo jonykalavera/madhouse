@@ -1,12 +1,33 @@
 return {
 	{
 		"stevearc/oil.nvim",
-		opts = {},
 		-- Optional dependencies
 		dependencies = { { "echasnovski/mini.icons", opts = {} } },
 		-- dependencies = { "nvim-tree/nvim-web-devicons" }, -- use if prefer nvim-web-devicons
 		config = function()
-			require("oil").setup({})
+			require("oil").setup({
+				default_file_explorer = true,
+				-- Make sure you have this in your options:
+				view_options = {
+					show_hidden = false,
+					is_hidden_file = function(name, _)
+						local hidden_patterns = {
+							"^%.",
+							"%.uid[/]?$", -- .uid files
+							"%.import[/]?$", -- .import files
+							"^%.godot[/]?$", -- .godot directory
+							"^%.mono[/]?$", -- .mono directory
+							"godot.*%.tmp$", -- godot temp files
+						}
+						for _, pat in ipairs(hidden_patterns) do
+							if name:match(pat) then
+								return true
+							end
+						end
+						return false
+					end,
+				},
+			})
 			vim.keymap.set("n", "<Leader>oo", "<CMD>:Oil --float<CR>", { desc = "Toggle Oil" })
 		end,
 	},
@@ -50,15 +71,62 @@ return {
 	},
 	{
 		"nvim-lualine/lualine.nvim",
-		dependencies = { "nvim-tree/nvim-web-devicons" },
+		dependencies = { "nvim-tree/nvim-web-devicons", "nvim-neotest/neotest" },
 		config = function()
 			local job_indicator = { require("easy-dotnet.ui-modules.jobs").lualine }
+			local neotest_component = function()
+				local ok, neotest = pcall(require, "neotest")
+				if not ok or not neotest.state then
+					return "neotest not loaded"
+				end
+
+				local adapters = neotest.state.adapter_ids()
+				if not adapters or vim.tbl_isempty(adapters) then
+					return ""
+				end
+				local stats = {}
+				local counterIcons = {
+					total = "",
+					passed = "✔",
+					failed = "✖",
+					skipped = "↷",
+					running = "●",
+				}
+				local counters = {}
+				for _, adapter in ipairs(adapters) do
+					local status_counts = neotest.state.status_counts(adapter)
+					if status_counts then
+						for counter, value in pairs(status_counts) do
+							counters[counter] = (counters[counter] or 0) + value
+						end
+					end
+				end
+				for counter, icon in pairs(counterIcons) do
+					local value = counters[counter]
+					if icon and value and value > 0 then
+						table.insert(stats, icon .. " " .. value)
+					end
+				end
+
+				-- Rebuild output preserving order; show icons only if count > 0 (total always)
+				stats = {}
+				local order = { "total", "passed", "failed", "skipped", "running" }
+				for _, key in ipairs(order) do
+					local value = counters[key] or 0
+					if value > 0 or key == "total" then
+						table.insert(stats, string.format("%s %d", counterIcons[key], value))
+					end
+				end
+				return table.concat(stats, "  ")
+			end
+
 			require("lualine").setup({
 				options = {
 					theme = "molokai",
 				},
 				sections = {
 					lualine_a = { "mode", job_indicator },
+					lualine_c = { "filename", neotest_component },
 				},
 			})
 		end,
@@ -72,11 +140,6 @@ return {
 				timeout = 3000,
 				top_down = false,
 				merge_duplicates = true,
-				sections = {
-					lualine_a = {
-						{ "pipeline" },
-					},
-				},
 			})
 		end,
 	},
@@ -186,7 +249,7 @@ return {
 			-- *************************************************************************
 			-- MiniPairs
 			-- *************************************************************************
-			require("mini.pairs").setup()
+			require("mini.pairs").setup({})
 
 			-- *************************************************************************
 			-- MiniVisits
@@ -238,6 +301,10 @@ return {
 		opts = {
 			options = {
 				diagnostics = "nvim_lsp",
+				diagnostics_indicator = function(count, level)
+					local icon = level:match("error") and " " or " "
+					return " " .. icon .. count
+				end,
 				always_show_bufferline = false,
 				offsets = {
 					{
@@ -248,6 +315,12 @@ return {
 					},
 					{
 						filetype = "snacks_layout_box",
+					},
+					{
+						filetype = "opencode",
+					},
+					{
+						filetype = "qf",
 					},
 				},
 			},
@@ -261,15 +334,8 @@ return {
 
 			local Terminal = require("toggleterm.terminal").Terminal
 			-- function to run on opening the terminal
-			local on_open = function(term)
+			local on_open = function()
 				vim.cmd("startinsert!")
-				vim.api.nvim_buf_set_keymap(
-					term.bufnr,
-					"n",
-					"q",
-					"<cmd>close<CR>",
-					{ noremap = true, silent = true, desc = "Close" }
-				)
 			end
 			-- function to run on closing the terminal
 			---@diagnostic disable-next-line: unused-local
@@ -278,7 +344,7 @@ return {
 			end
 			-- ToggleTerm setup
 			toggleterm.setup({
-				open_mapping = { [[<c-\]], [[<C-º>]] },
+				open_mapping = { [[<c-\>]], [[<C-º>]] },
 				on_close = on_close,
 				on_open = on_open,
 				shade_terminals = false,

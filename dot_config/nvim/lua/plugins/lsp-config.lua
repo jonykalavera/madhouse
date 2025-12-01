@@ -13,6 +13,7 @@ return {
 					},
 				},
 			})
+			vim.diagnostic.config({ virtual_text = true })
 		end,
 	},
 	{
@@ -38,14 +39,6 @@ return {
 						group_index = 0, -- set group index to 0 to skip loading LuaLS completions
 					})
 				end,
-			},
-		},
-		opts = {
-			diagnostics = {
-				virtual_text = false,
-			},
-			servers = {
-				ansiblels = {},
 			},
 		},
 		config = function()
@@ -75,11 +68,11 @@ return {
 						plugins = {
 							pyflakes = { enabled = false },
 							pycodestyle = {
-								ignore = {},
+								ignore = { "W391", "W503" },
 								maxLineLength = 120,
 							},
 							mypy = { enabled = true },
-							pyls_mypy = { enabled = true },
+							pyls_mypy = { enabled = true, live_mode = true },
 							pyright = { enabled = false },
 						},
 					},
@@ -148,6 +141,33 @@ return {
 				},
 			})
 			vim.lsp.enable("ts_ls")
+
+			-- deduplicate lsp references
+			local function filterDuplicates(array)
+				local uniqueArray = {}
+				for _, tableA in ipairs(array) do
+					local isDuplicate = false
+					for _, tableB in ipairs(uniqueArray) do
+						if vim.deep_equal(tableA, tableB) then
+							isDuplicate = true
+							break
+						end
+					end
+					if not isDuplicate then
+						table.insert(uniqueArray, tableA)
+					end
+				end
+				return uniqueArray
+			end
+
+			local function on_list(options)
+				options.items = filterDuplicates(options.items)
+				vim.fn.setqflist({}, " ", options)
+				vim.cmd("botright copen")
+			end
+
+			-- Usage
+			vim.lsp.buf.references(nil, { on_list = on_list })
 		end,
 	},
 	{
