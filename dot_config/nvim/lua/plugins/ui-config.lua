@@ -382,6 +382,12 @@ return {
 				direction = "float",
 				display_name = "LazyRedis",
 			})
+			local slumber = Terminal:new({
+				cmd = "slumber",
+				hidden = true,
+				direction = "float",
+				display_name = "Slumber",
+			})
 
 			vim.keymap.set("n", "<leader>lg", function()
 				lazygit:toggle()
@@ -398,6 +404,9 @@ return {
 			vim.keymap.set("n", "<leader>lr", function()
 				lazyredis:toggle()
 			end, { noremap = true, silent = true, desc = "LazyRedis" })
+			vim.keymap.set("n", "<leader>sl", function()
+				slumber:toggle()
+			end, { noremap = true, silent = true, desc = "Slumber" })
 			function _G.set_terminal_keymaps()
 				local opts = { buffer = 0 }
 				vim.keymap.set("t", "jk", [[<C-\><C-n>]], opts)

@@ -8,6 +8,13 @@ return {
 					cmd = "oxi",
 				},
 			},
+			mapping = {
+				["show_option_menu"] = {
+					map = "<leader>so",
+					cmd = "<cmd>lua require('spectre').show_options()<CR>",
+					desc = "show options",
+				},
+			},
 			find_engine = {
 				-- rg is map with finder_cmd
 				["rg"] = {

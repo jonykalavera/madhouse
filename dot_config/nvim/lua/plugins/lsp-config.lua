@@ -53,12 +53,27 @@ return {
 			-- How to add LSP for a specific language?
 			-- 1. Use `:Mason` to install corresponding LSP
 			-- 2. Add configuration below
-			vim.lsp.config("lua_ls", {
-				on_attach = handlers.on_attach,
-				capabilities = capabilities,
-				filetypes = { "lua" },
-			})
-			vim.lsp.enable("lua_ls")
+			-- Lua via modern @lsp/ loader
+			do
+				local cfg_path = vim.fn.stdpath("config") .. "/lsp/lua.lua"
+				local ok, user_cfg = pcall(dofile, cfg_path)
+				if ok and type(user_cfg) == "table" then
+					local lua_cfg = vim.tbl_deep_extend("force", user_cfg, {
+						on_attach = handlers.on_attach,
+						capabilities = capabilities,
+					})
+					local grp = vim.api.nvim_create_augroup("lsp_lua_ls", { clear = true })
+					vim.api.nvim_create_autocmd("FileType", {
+						group = grp,
+						pattern = "lua",
+						callback = function()
+							lua_cfg.root_dir = lua_cfg.root_dir or vim.fs.root(0, { ".git", "lua" })
+							lua_cfg.name = lua_cfg.name or "lua_ls"
+							vim.lsp.start(lua_cfg)
+						end,
+					})
+				end
+			end
 			vim.lsp.config("pylsp", {
 				on_attach = handlers.on_attach,
 				capabilities = capabilities,

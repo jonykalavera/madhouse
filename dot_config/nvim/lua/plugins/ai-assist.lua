@@ -20,7 +20,9 @@ return {
 		config = function()
 			---@type opencode.Opts
 			vim.g.opencode_opts = {
-				-- Your configuration, if any — see `lua/opencode/config.lua`, or "goto definition".
+				provider = {
+					enabled = "snacks",
+				},
 			}
 
 			-- Required for `opts.auto_reload`.
@@ -31,9 +33,12 @@ return {
 			end
 
 			-- Recommended/example keymaps.
+			vim.keymap.set({ "n", "x" }, "<C-S-a>", function()
+				require("opencode").ask("@this: ", { submit = true })
+			end, { desc = "Ask opencode" })
 			vim.keymap.set({ "n", "x" }, "<leader>oc", function()
 				require("opencode").toggle()
-			end, opts("Ask opencode"))
+			end, opts("Toggle opencode"))
 			vim.keymap.set({ "n", "x" }, "<leader>ox", function()
 				require("opencode").select()
 			end, opts("Execute opencode action…"))
@@ -46,9 +51,6 @@ return {
 			vim.keymap.set("n", "<S-C-d>", function()
 				require("opencode").command("messages_half_page_down")
 			end, opts("opencode half page down"))
-			-- -- You may want these if you stick with the opinionated "<C-a>" and "<C-x>" above — otherwise consider "<leader>o".
-			-- vim.keymap.set("n", "+", "<C-r>", opts("Increment"))
-			-- vim.keymap.set("n", "-", "<C-x>", opts("Decrement"))
 		end,
 	},
 }

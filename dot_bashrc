@@ -303,3 +303,4 @@ if [ -f "$HOME/.local/share/dnvm/env" ]; then
 fi
 # opencode
 export PATH=/home/jony/.opencode/bin:$PATH
+source <(COMPLETE=bash slumber)
