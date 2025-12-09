@@ -3,11 +3,9 @@ return {
 		"GustavEikaas/easy-dotnet.nvim",
 		dependencies = { "nvim-lua/plenary.nvim", "nvim-telescope/telescope.nvim", "neovim/nvim-lspconfig" },
 		config = function()
-			local handlers = require("common.handlers")
 			local dotnet = require("easy-dotnet")
 			dotnet.setup({
 				debugger = {
-					--name if netcoredbg is in PATH or full path like 'C:\Users\gusta\AppData\Local\nvim-data\mason\bin\netcoredbg.cmd'
 					bin_path = "netcoredbg",
 				},
 			})
@@ -25,17 +23,10 @@ return {
 			end
 
 			-- CS Projects
-			vim.api.nvim_create_autocmd("LspAttach", {
-				group = vim.api.nvim_create_augroup("easy_dotnet", {}),
-				callback = function(args)
-					local client = assert(vim.lsp.get_client_by_id(args.data.client_id))
-					handlers.on_attach(client, args.buf)
-				end,
-			})
 			vim.api.nvim_create_autocmd("BufEnter", {
 				pattern = { "*.cs,*.csproj,*.sln,*.slnx,*.props,*.targets" },
 				--command = solution.LoadSolution,
-				callback = function(evt)
+				callback = function(_)
 					vim.api.nvim_create_user_command("FixProjectSlashes", FixProjectSlashes, {})
 					vim.keymap.set("n", "<leader>ps", ":FixProjectSlashes<CR>", opts("Fix project slashes"))
 

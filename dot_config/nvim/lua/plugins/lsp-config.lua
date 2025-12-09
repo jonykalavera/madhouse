@@ -51,7 +51,7 @@ return {
 			-- How to add LSP for a specific language?
 			-- 1. Add configuration at `lua/lsp/<lang>.lua`
 			-- 2. Use `:Mason` to install corresponding LSP
-			require("lsp")
+			require("lsp").setup()
 
 			-- deduplicate LSP references
 			local function filterDuplicates(array)
