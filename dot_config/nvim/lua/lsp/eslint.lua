@@ -6,7 +6,6 @@ return {
 		})
 		require("common.handlers").on_attach(client, bufnr)
 	end,
-	capabilities = require("cmp_nvim_lsp").default_capabilities(),
 	filetypes = {
 		"javascript",
 		"javascriptreact",
