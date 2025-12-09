@@ -297,7 +297,7 @@ return {
 	{
 		"akinsho/bufferline.nvim",
 		version = "*",
-		dependencies = "nvim-tree/nvim-web-devicons",
+		dependencies = { "nvim-tree/nvim-web-devicons", "echasnovski/mini.bufremove" },
 		opts = {
 			options = {
 				diagnostics = "nvim_lsp",
@@ -323,6 +323,15 @@ return {
 						filetype = "qf",
 					},
 				},
+				filter = function(buf)
+					return vim.bo[buf].buftype ~= "terminal"
+				end,
+				close_command = function(n)
+					require("mini.bufremove").delete(n, false)
+				end,
+				right_mouse_command = function(n)
+					require("mini.bufremove").delete(n, false)
+				end,
 			},
 		},
 	},

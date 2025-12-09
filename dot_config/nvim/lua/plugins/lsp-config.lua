@@ -7,7 +7,7 @@ return {
 			require("tiny-inline-diagnostic").setup({
 				options = {
 					-- Virtual text display priority
-					-- Higher values appear above other plugins (e.g., GitBlame)
+					-- Higher values appear above other plugins (e.g., Git-Blame)
 					virt_texts = {
 						priority = 12048,
 					},
@@ -21,143 +21,39 @@ return {
 		dependencies = {
 			{
 				"folke/lazydev.nvim",
-				ft = "lua", -- only load on lua files
+				ft = "lua", -- only load on Lua files
 				opts = {
 					library = {
 						-- See the configuration section for more details
-						-- Load luvit types when the `vim.uv` word is found
+						-- Load `luvit` types when the `vim.uv` word is found
 						{ path = "${3rd}/luv/library", words = { "vim%.uv" } },
 					},
 				},
 			},
-			{ -- optional cmp completion source for require statements and module annotations
+			{ -- Optional `cmp` completion source for require statements and module annotations
 				"hrsh7th/nvim-cmp",
 				opts = function(_, opts)
 					opts.sources = opts.sources or {}
 					table.insert(opts.sources, {
 						name = "lazydev",
-						group_index = 0, -- set group index to 0 to skip loading LuaLS completions
+						group_index = 0, -- set group index to 0 to skip loading `LuaLS` completions
 					})
 				end,
 			},
 		},
 		config = function()
-			local capabilities = require("cmp_nvim_lsp").default_capabilities()
-			-- Set different settings for different languages' LSP
+			-- Set different settings for different languages' LSP.
 			-- LSP list: https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md
 			-- How to use setup({}): https://github.com/neovim/nvim-lspconfig/wiki/Understanding-setup-%7B%7D
 			--     - the settings table is sent to the LSP
-			--     - on_attach: a lua callback function to run after LSP attaches to a given buffer
-			local handlers = require("common.handlers")
+			--     - on_attach: a Lua callback function to run after LSP attaches to a given buffer
 			-- Configure each language
 			-- How to add LSP for a specific language?
-			-- 1. Use `:Mason` to install corresponding LSP
-			-- 2. Add configuration below
-			-- Lua via modern @lsp/ loader
-			do
-				local cfg_path = vim.fn.stdpath("config") .. "/lsp/lua.lua"
-				local ok, user_cfg = pcall(dofile, cfg_path)
-				if ok and type(user_cfg) == "table" then
-					local lua_cfg = vim.tbl_deep_extend("force", user_cfg, {
-						on_attach = handlers.on_attach,
-						capabilities = capabilities,
-					})
-					local grp = vim.api.nvim_create_augroup("lsp_lua_ls", { clear = true })
-					vim.api.nvim_create_autocmd("FileType", {
-						group = grp,
-						pattern = "lua",
-						callback = function()
-							lua_cfg.root_dir = lua_cfg.root_dir or vim.fs.root(0, { ".git", "lua" })
-							lua_cfg.name = lua_cfg.name or "lua_ls"
-							vim.lsp.start(lua_cfg)
-						end,
-					})
-				end
-			end
-			vim.lsp.config("pylsp", {
-				on_attach = handlers.on_attach,
-				capabilities = capabilities,
-				filetypes = { "python" },
-				settings = {
-					pylsp = {
-						plugins = {
-							pyflakes = { enabled = false },
-							pycodestyle = {
-								ignore = { "W391", "W503" },
-								maxLineLength = 120,
-							},
-							mypy = { enabled = true },
-							pyls_mypy = { enabled = true, live_mode = true },
-							pyright = { enabled = false },
-						},
-					},
-				},
-			})
-			vim.lsp.enable("pylsp")
-			vim.lsp.config("ruff", {
-				on_attach = handlers.on_attach,
-				capabilities = capabilities,
-				filetypes = { "python" },
-			})
-			vim.lsp.enable("ruff")
-			vim.lsp.config("marksman", {
-				on_attach = handlers.on_attach,
-				capabilities = capabilities,
-				filetypes = { "markdown" },
-			})
-			vim.lsp.enable("marksman")
-			vim.lsp.config("harper_ls", {
-				on_attach = handlers.on_attach,
-				capabilities = capabilities,
-				filetypes = { "toml" },
-			})
-			vim.lsp.enable("harper_ls")
-			vim.lsp.config("gdscript", {
-				on_attach = handlers.on_attach,
-				capabilities = capabilities,
-				filetypes = { "gdscript" },
-			})
-			vim.lsp.enable("gdscript")
-			vim.lsp.config("eslint", {
-				on_attach = function(client, bufnr)
-					vim.api.nvim_create_autocmd("BufWritePre", {
-						buffer = bufnr,
-						command = "EslintFixAll",
-					})
-					handlers.on_attach(client, bufnr)
-				end,
-				capabilities = capabilities,
-				filetypes = {
-					"javascript",
-					"javascriptreact",
-					"javascript.jsx",
-					"typescript",
-					"typescriptreact",
-					"typescript.tsx",
-					"vue",
-					"svelte",
-					"astro",
-				},
-			})
-			vim.lsp.enable("eslint")
-			vim.lsp.config("ts_ls", {
-				on_attach = handlers.on_attach,
-				capabilities = capabilities,
-				filetypes = {
-					"javascript",
-					"javascriptreact",
-					"javascript.jsx",
-					"typescript",
-					"typescriptreact",
-					"typescript.tsx",
-					"vue",
-					"svelte",
-					"astro",
-				},
-			})
-			vim.lsp.enable("ts_ls")
+			-- 1. Add configuration at `lua/lsp/<lang>.lua`
+			-- 2. Use `:Mason` to install corresponding LSP
+			require("lsp")
 
-			-- deduplicate lsp references
+			-- deduplicate LSP references
 			local function filterDuplicates(array)
 				local uniqueArray = {}
 				for _, tableA in ipairs(array) do
@@ -189,7 +85,6 @@ return {
 		"williamboman/mason-lspconfig.nvim",
 		opts = {
 			ensure_installed = {
-				"lua_ls",
 				"marksman",
 				"harper_ls",
 				"eslint",

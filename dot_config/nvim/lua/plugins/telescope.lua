@@ -41,7 +41,7 @@ return {
 				builtin.command_history,
 				{ desc = "Lists commands that were executed recently." }
 			)
-			vim.keymap.set("n", "<leader>fg", function()
+			vim.keymap.set("n", "<C-f>", function()
 				require("telescope").extensions.live_grep_args.live_grep_args()
 			end, { desc = "Search for a string in your current working directory" })
 			vim.keymap.set("n", "<leader>fb", function()
@@ -95,10 +95,15 @@ return {
 					["ui-select"] = {
 						require("telescope.themes").get_dropdown({}),
 					},
+					["live_grep_args"] = {
+						additional_args = { "--hidden" },
+					},
 				},
 			})
 			telescope.load_extension("live_grep_args")
 			telescope.load_extension("ui-select")
+			local live_grep_args_shortcuts = require("telescope-live-grep-args.shortcuts")
+			vim.keymap.set("n", "<leader>gc", live_grep_args_shortcuts.grep_word_under_cursor)
 		end,
 	},
 }
