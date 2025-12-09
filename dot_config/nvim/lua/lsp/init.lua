@@ -1,8 +1,14 @@
 -- load each server config
 local servers = {
 	"easy_dotnet",
+	"eslint",
+	"gdscript",
+	"harper_ls",
 	"lua_ls",
+	"marksman",
 	"pylsp",
+	"ruff",
+	"ts_ls",
 }
 
 for _, server in ipairs(servers) do
