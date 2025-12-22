@@ -379,11 +379,11 @@ return {
 				display_name = "K9s",
 			})
 
-			local lazysql = Terminal:new({
-				cmd = "lazysql",
+			local harlequin = Terminal:new({
+				cmd = "harlequin",
 				hidden = false,
 				direction = "float",
-				display_name = "LazySQL",
+				display_name = "Harlequin",
 			})
 			local lazyredis = Terminal:new({
 				cmd = "lazyredis",
@@ -407,8 +407,8 @@ return {
 			vim.keymap.set("n", "<leader>k9", function()
 				k9s:toggle()
 			end, { noremap = true, silent = true, desc = "K9s" })
-			vim.keymap.set("n", "<leader>ls", function()
-				lazysql:toggle()
+			vim.keymap.set("n", "<leader>hq", function()
+				harlequin:toggle()
 			end, { noremap = true, silent = true, desc = "LazySQL" })
 			vim.keymap.set("n", "<leader>lr", function()
 				lazyredis:toggle()

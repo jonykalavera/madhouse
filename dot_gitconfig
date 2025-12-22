@@ -3,8 +3,8 @@
     pager = delta
 
 [user]
-    email = mr.jony@gmail.com
-    name = Jony Kalavera
+	email = sidecar@localhost
+	name = Grafana Sidecar
 
 [interactive]
     diffFilter = delta --color-only
@@ -34,3 +34,9 @@
 
 [difftool "meld"]
     cmd = meld "$LOCAL" "$REMOTE"
+[safe]
+	directory = /home/jony/code/HouseOfTickets/monitoring-as-code/grafana/provisioning/dashboards/json
+	directory = /home/jony/code/HouseOfTickets/monitoring-as-code/grafana/provisioning/dashboards/json
+	directory = /tmp/test_dashboards_integration
+[url "https://${GITHUB_TOKEN}@github.com/"]
+	insteadOf = https://github.com/

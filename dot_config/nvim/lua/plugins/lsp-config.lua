@@ -88,7 +88,9 @@ return {
 				"marksman",
 				"harper_ls",
 				"eslint",
+				-- "omnisharp",
 			},
+			automatic_installation = true,
 		},
 		dependencies = {
 			{ "mason-org/mason.nvim", opts = {} },

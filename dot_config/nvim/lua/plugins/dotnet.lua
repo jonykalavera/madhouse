@@ -1,12 +1,23 @@
 return {
 	{
 		"GustavEikaas/easy-dotnet.nvim",
-		dependencies = { "nvim-lua/plenary.nvim", "nvim-telescope/telescope.nvim", "neovim/nvim-lspconfig" },
+		dependencies = {
+			"nvim-lua/plenary.nvim",
+			"nvim-telescope/telescope.nvim",
+			"neovim/nvim-lspconfig",
+		},
 		config = function()
 			local dotnet = require("easy-dotnet")
 			dotnet.setup({
+				-- lsp = {
+				-- 	enabled = false,
+				-- },
 				debugger = {
 					bin_path = "netcoredbg",
+				},
+				notifications = {
+					--Set this to false if you have configured lualine to avoid double logging
+					handler = false,
 				},
 			})
 
