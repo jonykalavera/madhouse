@@ -90,6 +90,7 @@ return {
 			vim.keymap.set("n", "<leader>dL", function()
 				dap.set_breakpoint(nil, nil, vim.fn.input("Log point message: "))
 			end, opts("Set log point"))
+			vim.keymap.set("n", "<leader>dX", dap.clear_breakpoints, opts("Clear all breakpoints"))
 
 			-- nnoremap <silent> <Leader>dr <Cmd>lua require'dap'.repl.open()<CR>
 			-- nnoremap <silent> <Leader>dl <Cmd>lua require'dap'.run_last()<CR>

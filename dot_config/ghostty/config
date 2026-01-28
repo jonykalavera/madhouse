@@ -6,7 +6,7 @@ font-family-bold = Agave Nerd Font Mono Bold
 font-family-italic = Agave Nerd Font Mono Italic
 font-family-bold-italic = Agave Nerd Font Mono Bold Italic
 
-font-size = 10
+font-size = 14
 
 keybind = ctrl+enter=unbind
 keybind = super+enter=toggle_fullscreen

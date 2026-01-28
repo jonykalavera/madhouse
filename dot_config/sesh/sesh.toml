@@ -1,3 +1,3 @@
 [default_session]
-startup_script="~/.config/sesh/startup_script.sh"
+startup_command="~/.config/sesh/startup_script.sh"
 

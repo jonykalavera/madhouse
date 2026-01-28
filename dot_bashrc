@@ -159,10 +159,10 @@ if [ -f "${SSH_ENV}" ]; then
     . "${SSH_ENV}" >/dev/null
     #ps ${SSH_AGENT_PID} doesn't work under Cygwin
     ps -ef | grep ${SSH_AGENT_PID} | grep ssh-agent$ >/dev/null || {
-        start_agent;
+        start_agent > /dev/null;
     }
 else
-    start_agent;
+    start_agent > /dev/null;
 fi
 
 ###############################################################################
@@ -207,9 +207,9 @@ eval "$(starship init bash)"
 ###############################################################################
 # PyEnv
 ###############################################################################
-export PYENV_ROOT="$HOME/.pyenv"
-command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init -)"
+# export PYENV_ROOT="$HOME/.pyenv"
+# command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
+# eval "$(pyenv init -)"
 
 ###############################################################################
 # Autocomplete makefile targets
@@ -304,3 +304,10 @@ fi
 # opencode
 export PATH=/home/jony/.opencode/bin:$PATH
 source <(COMPLETE=bash slumber)
+
+# opencode
+export PATH=/home/luis/.opencode/bin:$PATH
+
+export TUNNELTO_INSTALL="/home/luis/.tunnelto"
+export PATH="$TUNNELTO_INSTALL/bin:$PATH"
+

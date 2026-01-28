@@ -41,7 +41,7 @@ return {
 				builtin.command_history,
 				{ desc = "Lists commands that were executed recently." }
 			)
-			vim.keymap.set("n", "<C-f>", function()
+			vim.keymap.set("n", "<C-f><C-f>", function()
 				require("telescope").extensions.live_grep_args.live_grep_args()
 			end, { desc = "Search for a string in your current working directory" })
 			vim.keymap.set("n", "<leader>fb", function()
