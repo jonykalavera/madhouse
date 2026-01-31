@@ -11,3 +11,5 @@ font-size = 14
 keybind = ctrl+enter=unbind
 keybind = super+enter=toggle_fullscreen
 
+gtk-titlebar = false
+gtk-titlebar-hide-when-maximized = true
