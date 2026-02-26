@@ -2,7 +2,9 @@ format = """
 [](#9A348E)\
 $status\
 $username\
-[](bg:#DA627D fg:#9A348E)\
+[](bg:#B74D8B fg:#9A348E)\
+${custom.hostname_with_icon}\
+[](bg:#DA627D fg:#B74D8B)\
 $directory\
 [](fg:#DA627D bg:#FCA17D)\
 $git_branch\
@@ -150,4 +152,55 @@ symbol = ' 👹 '
 success_symbol = ' 💀 '
 format = '[$symbol]($style)'
 map_symbol = true
+disabled = false
+
+[hostname]
+ssh_only = false
+style = 'bg:#9A348E'
+format = '[$hostname]($style)'
+disabled = true
+
+[custom.chassis_icon]
+command = '''
+chassis=$(hostnamectl --json=short 2>/dev/null | jq -r .Chassis 2>/dev/null || cat /sys/class/dmi/id/chassis_type 2>/dev/null)
+case $chassis in
+    desktop) echo -n "🖥️" ;;
+    laptop) echo -n "💻" ;;
+    server) echo -n "🖧" ;;
+    tablet) echo -n "📱" ;;
+    phone) echo -n "📱" ;;
+    vm|virtualmachine) echo -n "⚡" ;;
+    container) echo -n "🐳" ;;
+    3) echo -n "🖥️" ;;
+    8) echo -n "💻" ;;
+    23) echo -n "🖧" ;;
+    *) echo -n "🖥️" ;;
+esac
+'''
+when = "true"
+style = 'bg:#9A348E'
+format = '[$output ]($style)'
+disabled = true
+
+[custom.hostname_with_icon]
+command = '''
+chassis=$(hostnamectl --json=short 2>/dev/null | jq -r .Chassis 2>/dev/null || cat /sys/class/dmi/id/chassis_type 2>/dev/null)
+case $chassis in
+    desktop) icon="🖥️" ;;
+    laptop) icon="💻" ;;
+    server) icon="🖧" ;;
+    tablet) icon="📱" ;;
+    phone) icon="📱" ;;
+    vm|virtualmachine) icon="⚡" ;;
+    container) icon="🐳" ;;
+    3) icon="🖥️" ;;
+    8) icon="💻" ;;
+    23) icon="🖧" ;;
+    *) icon="🖥️" ;;
+esac
+echo -n "$icon $(hostname)"
+'''
+when = "true"
+style = 'bg:#B74D8B'
+format = '[ $output]($style)'
 disabled = false
