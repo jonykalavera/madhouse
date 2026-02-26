@@ -1,3 +1,7 @@
+[core]
+	pager = delta
+[delta]
+    side-by-side = true
 [user]
 	email = mr.jony@gmail.com
 	name = Jony Kalavera

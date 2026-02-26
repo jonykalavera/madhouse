@@ -8,7 +8,7 @@ return {
 		config = function()
 			vim.filetype.add({
 				extension = {
-					jst = "embedded_template",
+					jst = "underscore",
 				},
 			})
 			local parser_config = require("nvim-treesitter.parsers").get_parser_configs()
@@ -24,7 +24,19 @@ return {
 				},
 				filetype = "embedded_template", -- if filetype does not match the parser name
 			}
+			parser_config.underscore = {
+				install_info = {
+					url = "https://github.com/AlexJMohr/tree-sitter-underscore.git", -- local path or git repo
+					files = { "src/parser.c" }, -- note that some parsers also require src/scanner.c or src/scanner.cc
+					-- optional entries:
+					branch = "main", -- default branch in case of git repo if different from master
+					generate_requires_npm = false, -- if stand-alone parser without npm dependencies
+					requires_generate_from_grammar = false, -- if folder contains pre-generated src/parser.c
+				},
+				filetype = "underscore", -- if filetype does not match the parser name
+			}
 			vim.treesitter.language.register("embedded_template", "embedded_template")
+			vim.treesitter.language.register("underscore", "underscore")
 			local configs = require("nvim-treesitter.configs")
 			configs.setup({
 				ensure_installed = {
@@ -44,6 +56,7 @@ return {
 					"bash",
 					"json",
 					"sql",
+					"underscore",
 				},
 				ignore_install = {},
 				sync_install = false,
